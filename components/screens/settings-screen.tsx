@@ -1,0 +1,149 @@
+"use client"
+
+import { useState } from "react"
+import { useStore } from "@/lib/store"
+import { ScreenHeader } from "@/components/screen-header"
+import { GameButton } from "@/components/game-button"
+import { languageNames } from "@/lib/i18n"
+import type { Language, TextSize } from "@/lib/types"
+
+export function SettingsScreen({ onBack }: { onBack: () => void }) {
+  const { t, name, setName, language, setLanguage, accessibility, setAccessibility, resetProgress } =
+    useStore()
+  const [nameDraft, setNameDraft] = useState(name ?? "")
+
+  const textSizes: TextSize[] = ["small", "medium", "large"]
+
+  return (
+    <div className="flex flex-col gap-5">
+      <ScreenHeader title={t("settings.title")} subtitle={t("settings.subtitle")} onBack={onBack} />
+
+      {/* Text size */}
+      <section className="pixel-panel bg-card p-4">
+        <h2 className="mb-3 text-lg font-extrabold text-foreground">{t("settings.textSize")}</h2>
+        <div className="flex gap-2">
+          {textSizes.map((ts) => (
+            <button
+              key={ts}
+              type="button"
+              onClick={() => setAccessibility({ textSize: ts })}
+              className={`pixel-btn flex-1 py-3 ${
+                accessibility.textSize === ts ? "bg-primary text-primary-foreground" : "bg-card text-foreground"
+              }`}
+              style={{ fontSize: ts === "small" ? "0.9rem" : ts === "medium" ? "1.05rem" : "1.25rem" }}
+            >
+              {t(`settings.${ts}`)}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Language */}
+      <section className="pixel-panel bg-card p-4">
+        <h2 className="mb-3 text-lg font-extrabold text-foreground">{t("settings.language")}</h2>
+        <div className="flex gap-2">
+          {(Object.keys(languageNames) as Language[]).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => setLanguage(lang)}
+              className={`pixel-btn flex-1 py-3 text-base ${
+                language === lang ? "bg-accent text-accent-foreground" : "bg-card text-foreground"
+              }`}
+            >
+              {languageNames[lang]}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Toggles */}
+      <section className="pixel-panel flex flex-col gap-3 bg-card p-4">
+        <Toggle
+          label={t("settings.reducedMotion")}
+          on={accessibility.reducedMotion}
+          onToggle={() => setAccessibility({ reducedMotion: !accessibility.reducedMotion })}
+          t={t}
+        />
+        <Toggle
+          label={t("settings.highContrast")}
+          on={accessibility.highContrast}
+          onToggle={() => setAccessibility({ highContrast: !accessibility.highContrast })}
+          t={t}
+        />
+        <Toggle
+          label={t("settings.voiceGuidance")}
+          on={accessibility.voiceGuidance}
+          onToggle={() => setAccessibility({ voiceGuidance: !accessibility.voiceGuidance })}
+          t={t}
+        />
+      </section>
+
+      {/* Name */}
+      <section className="pixel-panel bg-card p-4">
+        <label htmlFor="set-name" className="block text-lg font-extrabold text-foreground">
+          {t("settings.changeName")}
+        </label>
+        <div className="mt-2 flex gap-2">
+          <input
+            id="set-name"
+            value={nameDraft}
+            onChange={(e) => setNameDraft(e.target.value)}
+            className="flex-1 rounded-[12px] border-[3px] border-wood-dark bg-background px-4 py-3 text-lg font-bold outline-none focus:ring-4 focus:ring-primary/40"
+          />
+          <button
+            type="button"
+            onClick={() => nameDraft.trim() && setName(nameDraft.trim())}
+            className="pixel-btn bg-primary px-5 text-primary-foreground"
+          >
+            {t("common.save")}
+          </button>
+        </div>
+      </section>
+
+      {/* Reset */}
+      <GameButton
+        label={t("settings.resetProgress")}
+        variant="soft"
+        onClick={() => {
+          if (confirm(t("settings.resetConfirm"))) resetProgress()
+        }}
+      />
+
+      <p className="max-w-md text-xs font-medium leading-relaxed text-muted-foreground">
+        {t("app.disclaimer")}
+      </p>
+    </div>
+  )
+}
+
+function Toggle({
+  label,
+  on,
+  onToggle,
+  t,
+}: {
+  label: string
+  on: boolean
+  onToggle: () => void
+  t: (k: string) => string
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="flex items-center justify-between rounded-[12px] border-[3px] border-wood-dark bg-background px-4 py-3"
+    >
+      <span className="text-base font-bold text-foreground">{label}</span>
+      <span
+        className={`flex h-8 w-16 items-center rounded-full border-[3px] border-wood-dark p-0.5 transition-colors ${
+          on ? "bg-primary" : "bg-muted"
+        }`}
+      >
+        <span
+          className={`h-5 w-5 rounded-full bg-white transition-transform ${on ? "translate-x-8" : ""}`}
+        />
+      </span>
+    </button>
+  )
+}
