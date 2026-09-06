@@ -49,3 +49,11 @@ All new UI strings live under `multi.*` and `home.multi` keys in every one of th
 - P2: Export translation suggestions from Caregiver area.
 - P2: Complete Meetei Mayek dictionary coverage.
 - P2: Curated native TTS voice packs for Bodo, Kokborok, Khasi, Mizo.
+
+## Session 4 (delivery — Jan 2026)
+- ✅ **Player Avatars** — 8 cute pixel avatars (leaf, flower, bird, fish, star, sun, cloud, heart) picked during multiplayer setup, shown on the in-game scoreboard, active-player ring, and celebrated on the winner card. `lib/avatars.ts` + `components/avatar.tsx`.
+- ✅ **Match Sound Chime** — `lib/sounds.ts` uses the Web Audio API (no assets) to synthesize a 2-note happy chime on match, softer 2-note descending tone on miss, and a 4-note arpeggio on winner. Respects a new `accessibility.soundEffects` toggle (default on) exposed in Settings for every locale.
+- ✅ **Round Timer Option** — optional per-turn countdown (default 20s) with Off/On toggle in setup. When enabled the current-turn banner shows a `⏱ 19s` badge that turns red under 5s and auto-advances to the next player with a localized "Time's up!" banner.
+- ✅ **Winner Celebration** — `<Confetti/>` component renders a 70-piece pixel-block confetti burst over the winner screen for ~3.2s (custom CSS keyframe, no dependency). Winner name displayed in the current locale.
+- All new UI strings added to every one of the 12 locale files (`multi.avatar`, `multi.chooseAvatar`, `multi.timer`, `multi.timerOn/Off`, `multi.timeUp`, `settings.soundEffects`).
+- TypeScript compiles clean. Playwright verified end-to-end: setup avatars picked → gameplay scoreboard shows correct avatars + timer counting down → match/miss/winner chimes played → game completed → confetti overlay present → winner text "Winner: A".

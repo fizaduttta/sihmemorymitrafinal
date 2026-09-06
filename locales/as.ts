@@ -226,4 +226,12 @@ export const as: Record<string, string> = {
   "multi.deckMemories": "মোৰ স্মৃতি",
   "multi.deckHeading": "এখন ডেক বাছক",
   "home.multi": "স্থানীয় মাল্টিপ্লেয়াৰ",
+
+  "multi.avatar": "অৱতাৰ",
+  "multi.chooseAvatar": "{name}ৰ বাবে অৱতাৰ বাছক",
+  "multi.timer": "পালৰ সময়",
+  "multi.timerOn": "অন ({seconds} ছে.)",
+  "multi.timerOff": "অফ",
+  "multi.timeUp": "সময় শেষ! এতিয়া {next}ৰ পাল।",
+  "settings.soundEffects": "শব্দ প্ৰভাৱ",
 }

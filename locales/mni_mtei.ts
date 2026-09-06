@@ -129,4 +129,12 @@ export const mni_mtei: Record<string, string> = {
   "multi.backToMenu": "ꯃꯦꯅꯨꯗ ꯍꯟꯗꯣꯛ",
   "multi.instructions": "ꯌꯦꯠꯅꯕ ꯊꯤꯅꯕ ꯀꯥꯔꯗ ꯑꯅꯤ ꯁꯣꯀꯨ꯫",
   "home.multi": "ꯂꯣꯀꯦꯜ ꯃꯜꯇꯤꯄ꯭ꯂꯦꯌꯔ",
+
+  "multi.avatar": "ꯑꯋꯇꯥꯔ",
+  "multi.chooseAvatar": "{name} ꯒꯤ ꯑꯋꯇꯥꯔ ꯈꯟꯗꯣꯀꯨ",
+  "multi.timer": "ꯇꯥꯟ ꯃꯇꯝ",
+  "multi.timerOn": "ꯑꯣꯟ ({seconds}s)",
+  "multi.timerOff": "ꯑꯣꯐ",
+  "multi.timeUp": "ꯃꯇꯝ ꯂꯣꯏꯔꯦ! ꯍꯧꯖꯤꯛ {next} ꯒꯤ ꯇꯥꯟ꯫",
+  "settings.soundEffects": "ꯈꯣꯪꯖꯦꯜ",
 }

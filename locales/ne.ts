@@ -226,4 +226,12 @@ export const ne: Record<string, string> = {
   "multi.deckMemories": "मेरा सम्झना",
   "multi.deckHeading": "एउटा डेक छान्नुहोस्",
   "home.multi": "स्थानीय मल्टिप्लेयर",
+
+  "multi.avatar": "अवतार",
+  "multi.chooseAvatar": "{name} को लागि अवतार छान्नुहोस्",
+  "multi.timer": "पालो समय",
+  "multi.timerOn": "अन ({seconds}से.)",
+  "multi.timerOff": "अफ",
+  "multi.timeUp": "समय समाप्त! अब {next} को पालो।",
+  "settings.soundEffects": "आवाज प्रभाव",
 }

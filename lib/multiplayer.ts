@@ -17,14 +17,21 @@ export const MATCH_APPLY_MS = 550
 export interface Player {
   name: string
   pairs: number
+  avatarId: string
 }
 
 export interface MultiplayerConfig {
   playerCount: PlayerCount
   playerNames: string[]
+  playerAvatars: string[]
   difficulty: Difficulty
   useMemoriesDeck: boolean
+  timerEnabled: boolean
+  turnSeconds: number
 }
+
+/** Default duration for the optional per-turn timer (seconds). */
+export const DEFAULT_TURN_SECONDS = 20
 
 export function pairsFor(playerCount: PlayerCount, difficulty: Difficulty): number {
   return MULTI_PAIR_CONFIG[playerCount][difficulty]

@@ -227,4 +227,12 @@ export const lus: Record<string, string> = {
   "multi.deckMemories": "Ka Hriatrengna",
   "multi.deckHeading": "Deck thlang la",
   "home.multi": "Local Multiplayer",
+
+  "multi.avatar": "Milem",
+  "multi.chooseAvatar": "{name} tan milem thlang la",
+  "multi.timer": "Tur hun",
+  "multi.timerOn": "Awng ({seconds}s)",
+  "multi.timerOff": "Khar",
+  "multi.timeUp": "Hun a tawp! Tunah {next} tur.",
+  "settings.soundEffects": "Rimawi",
 }

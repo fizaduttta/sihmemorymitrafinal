@@ -227,4 +227,12 @@ export const mni: Record<string, string> = {
   "multi.deckMemories": "ঐগী নিংশিং",
   "multi.deckHeading": "ডেক অমা খন্দোকু",
   "home.multi": "লোকেল মাল্টিপ্লেয়াৰ",
+
+  "multi.avatar": "অৱতাৰ",
+  "multi.chooseAvatar": "{name} গী অৱতাৰ খন্দোকু",
+  "multi.timer": "তান মতম",
+  "multi.timerOn": "অন ({seconds} সে.)",
+  "multi.timerOff": "অফ",
+  "multi.timeUp": "মতম লোইরে! হৌজিক {next} গী তান।",
+  "settings.soundEffects": "খোঞ্জেল ফাওবা",
 }

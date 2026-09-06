@@ -227,4 +227,12 @@ export const kok: Record<string, string> = {
   "multi.deckMemories": "Ani Kokwi",
   "multi.deckHeading": "Deck khwrai",
   "home.multi": "Local Multiplayer",
+
+  "multi.avatar": "Avatar",
+  "multi.chooseAvatar": "{name} bagwi avatar khwrai",
+  "multi.timer": "Pala samay",
+  "multi.timerOn": "On ({seconds}s)",
+  "multi.timerOff": "Off",
+  "multi.timeUp": "Samay khani! Dini {next} ni pala.",
+  "settings.soundEffects": "Awaz",
 }

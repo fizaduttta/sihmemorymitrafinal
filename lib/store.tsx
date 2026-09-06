@@ -23,6 +23,7 @@ const defaultState: AppState = {
     reducedMotion: false,
     highContrast: false,
     voiceGuidance: false,
+    soundEffects: true,
   },
   progress: {
     gamesPlayed: 0,

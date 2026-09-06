@@ -1,13 +1,16 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { PartyPopper, Trophy } from "lucide-react"
+import { PartyPopper, Trophy, Timer as TimerIcon } from "lucide-react"
 import { useStore } from "@/lib/store"
 import { ScreenHeader } from "@/components/screen-header"
 import { GameButton } from "@/components/game-button"
 import { MemoryCard, type GameCard } from "@/components/memory-card"
+import { AvatarBadge } from "@/components/avatar"
+import { Confetti } from "@/components/confetti"
 import { CLASSIC_DECK, MULTI_DECK } from "@/lib/game-data"
 import { speak } from "@/lib/voice"
+import { playChime } from "@/lib/sounds"
 import {
   buildMultiplayerBoard,
   multiplayerGridCols,
@@ -17,15 +20,11 @@ import {
   NON_MATCH_REVEAL_MS,
   MATCH_APPLY_MS,
 } from "@/lib/multiplayer"
+import { defaultAvatarFor } from "@/lib/avatars"
 import type { CardContent } from "@/lib/types"
 
 type Phase = "play" | "complete"
 
-/**
- * Offline local multiplayer memory game.
- * Reuses <MemoryCard/> and the existing deck data. State is fully in-memory
- * (no backend). It integrates alongside single-player without touching it.
- */
 export function MultiplayerGameScreen({
   config,
   onExit,
@@ -39,7 +38,6 @@ export function MultiplayerGameScreen({
 
   const totalPairs = pairsFor(config.playerCount, config.difficulty)
 
-  // Choose deck source
   const memoriesDeck: CardContent[] = useMemo(
     () =>
       memories.map((m) => ({
@@ -56,16 +54,22 @@ export function MultiplayerGameScreen({
   const [phase, setPhase] = useState<Phase>("play")
   const [cards, setCards] = useState<GameCard[]>(() => buildMultiplayerBoard(sourceDeck, totalPairs))
   const [players, setPlayers] = useState<Player[]>(() =>
-    config.playerNames.map((name) => ({ name, pairs: 0 })),
+    config.playerNames.map((name, i) => ({
+      name,
+      pairs: 0,
+      avatarId: config.playerAvatars?.[i] ?? defaultAvatarFor(i),
+    })),
   )
   const [currentIdx, setCurrentIdx] = useState(0)
   const [selected, setSelected] = useState<number[]>([])
   const [lock, setLock] = useState(false)
   const [banner, setBanner] = useState<string | null>(null)
-  const [matchedThisTurn, setMatchedThisTurn] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(config.turnSeconds)
 
   const cardsRef = useRef<GameCard[]>([])
   cardsRef.current = cards
+  const selectedRef = useRef<number[]>([])
+  selectedRef.current = selected
 
   const currentPlayer = players[currentIdx]
   const remainingPairs = totalPairs - players.reduce((sum, p) => sum + p.pairs, 0)
@@ -77,7 +81,6 @@ export function MultiplayerGameScreen({
 
   const advanceTurn = useCallback(() => {
     setCurrentIdx((i) => (i + 1) % players.length)
-    setMatchedThisTurn(false)
   }, [players.length])
 
   function handleFlip(i: number) {
@@ -107,8 +110,8 @@ export function MultiplayerGameScreen({
         )
         setSelected([])
         setLock(false)
-        setMatchedThisTurn(true)
         showBanner(t("multi.matchTurnAgain", { name: currentPlayer.name }))
+        playChime("match", accessibility.soundEffects)
         if (accessibility.voiceGuidance)
           speak(t("multi.matchTurnAgain", { name: currentPlayer.name }), language, true)
       }, MATCH_APPLY_MS)
@@ -121,6 +124,7 @@ export function MultiplayerGameScreen({
       setSelected([])
       setLock(false)
       showBanner(t("multi.noMatch", { next: nextName }))
+      playChime("miss", accessibility.soundEffects)
       if (accessibility.voiceGuidance)
         speak(t("multi.noMatch", { next: nextName }), language, true)
       advanceTurn()
@@ -129,16 +133,46 @@ export function MultiplayerGameScreen({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
 
+  // Per-turn countdown timer
+  useEffect(() => {
+    if (!config.timerEnabled || phase !== "play") return
+    setTimeLeft(config.turnSeconds)
+    const iv = setInterval(() => {
+      setTimeLeft((s) => {
+        if (s <= 1) {
+          clearInterval(iv)
+          // Auto-advance if user hasn't completed their turn yet
+          if (selectedRef.current.length < 2) {
+            const nextName = players[(currentIdx + 1) % players.length]?.name ?? ""
+            // Flip any face-up unmatched card back
+            setCards((cur) =>
+              cur.map((c) => (c.faceUp && !c.matched ? { ...c, faceUp: false } : c)),
+            )
+            setSelected([])
+            setLock(false)
+            showBanner(t("multi.timeUp", { next: nextName }))
+            playChime("miss", accessibility.soundEffects)
+            advanceTurn()
+          }
+          return 0
+        }
+        return s - 1
+      })
+    }, 1000)
+    return () => clearInterval(iv)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIdx, config.timerEnabled, config.turnSeconds, phase])
+
   // Complete detection
   useEffect(() => {
     if (phase !== "play") return
     if (cards.length > 0 && cards.every((c) => c.matched)) {
       setPhase("complete")
-      // Record for progress: each player counts as one deck play
       recordRound(totalPairs, `multi:${config.difficulty}:${config.playerCount}`)
+      playChime("winner", accessibility.soundEffects)
       if (accessibility.voiceGuidance) speak(t("multi.gameComplete"), language, true)
     }
-  }, [cards, phase, totalPairs, config, recordRound, accessibility.voiceGuidance, language, t])
+  }, [cards, phase, totalPairs, config, recordRound, accessibility.soundEffects, accessibility.voiceGuidance, language, t])
 
   const cols = multiplayerGridCols(cards.length)
 
@@ -151,6 +185,7 @@ export function MultiplayerGameScreen({
 
     return (
       <div className="flex flex-col gap-5">
+        <Confetti active durationMs={3200} count={70} />
         <ScreenHeader
           title={t("multi.gameComplete")}
           subtitle={
@@ -162,10 +197,15 @@ export function MultiplayerGameScreen({
         />
 
         <section className="pixel-panel flex flex-col items-center gap-3 bg-card p-6 text-center">
-          <div className="flex h-20 w-20 items-center justify-center rounded-[16px] bg-primary text-primary-foreground pixel-panel animate-bob">
-            <PartyPopper className="h-10 w-10" strokeWidth={2.2} />
+          <div className="flex items-center gap-3">
+            {winners.map((w) => (
+              <AvatarBadge key={w.name} id={w.avatarId} size={64} ring />
+            ))}
           </div>
-          <p className="text-lg font-extrabold text-foreground">
+          <div className="flex h-14 w-14 items-center justify-center rounded-[14px] bg-primary text-primary-foreground pixel-panel animate-bob">
+            <PartyPopper className="h-7 w-7" strokeWidth={2.2} />
+          </div>
+          <p className="text-xl font-extrabold text-foreground" data-testid="multi-winner-name">
             {isTie
               ? t("multi.tie", { names: winners.map((w) => w.name).join(" · ") })
               : t("multi.winner", { name: winners[0].name })}
@@ -185,6 +225,7 @@ export function MultiplayerGameScreen({
                 <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-accent text-accent-foreground text-sm font-extrabold">
                   {i + 1}
                 </span>
+                <AvatarBadge id={p.avatarId} size={36} />
                 <span className="flex-1 text-base font-extrabold text-foreground">{p.name}</span>
                 {isWinner && <Trophy className="h-5 w-5 text-primary" strokeWidth={2.6} />}
                 <span className="rounded-[10px] bg-primary/15 px-3 py-1 text-sm font-extrabold text-primary">
@@ -214,6 +255,8 @@ export function MultiplayerGameScreen({
   }
 
   // ---------- PLAY ----------
+  const timerLow = config.timerEnabled && timeLeft <= 5
+
   return (
     <div className="flex flex-col gap-3">
       <ScreenHeader
@@ -222,7 +265,7 @@ export function MultiplayerGameScreen({
         onBack={onExit}
       />
 
-      {/* Scoreboard */}
+      {/* Scoreboard with avatars */}
       <ul
         className="flex gap-2 overflow-x-auto pb-1"
         data-testid="multi-scoreboard"
@@ -234,20 +277,23 @@ export function MultiplayerGameScreen({
             <li
               key={`${p.name}-${idx}`}
               data-testid={`multi-score-${idx}`}
-              className={`pixel-panel shrink-0 min-w-[6.5rem] px-3 py-2 text-center ${
+              className={`pixel-panel flex shrink-0 min-w-[7rem] items-center gap-2 px-2.5 py-2 ${
                 active ? "bg-primary text-primary-foreground animate-pop" : "bg-card text-foreground"
               }`}
             >
-              <p className="truncate text-sm font-extrabold leading-tight">{p.name}</p>
-              <p className="text-[11px] font-semibold opacity-80">
-                {p.pairs} {t("multi.pairs")}
-              </p>
+              <AvatarBadge id={p.avatarId} size={32} ring={active} />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-extrabold leading-tight">{p.name}</p>
+                <p className="text-[11px] font-semibold opacity-85">
+                  {p.pairs} {t("multi.pairs")}
+                </p>
+              </div>
             </li>
           )
         })}
       </ul>
 
-      {/* Current turn banner */}
+      {/* Current turn banner (with timer) */}
       <div className="min-h-[2.5rem]">
         {banner ? (
           <div
@@ -257,16 +303,29 @@ export function MultiplayerGameScreen({
             {banner}
           </div>
         ) : (
-          <div className="flex items-center justify-between rounded-[12px] bg-muted px-3 py-2">
-            <span
-              className="text-base font-extrabold text-foreground"
-              data-testid="multi-current-player"
-            >
-              {t("multi.yourTurn", { name: currentPlayer.name })}
+          <div className="flex items-center justify-between gap-2 rounded-[12px] bg-muted px-3 py-2">
+            <span className="flex items-center gap-2 text-base font-extrabold text-foreground">
+              <AvatarBadge id={currentPlayer.avatarId} size={28} />
+              <span data-testid="multi-current-player">
+                {t("multi.yourTurn", { name: currentPlayer.name })}
+              </span>
             </span>
-            <span className="text-sm font-bold text-muted-foreground">
-              {t("multi.remainingPairs")}: {remainingPairs}
-            </span>
+            <div className="flex items-center gap-3">
+              {config.timerEnabled && (
+                <span
+                  data-testid="multi-timer"
+                  className={`flex items-center gap-1 rounded-[8px] px-2 py-0.5 text-sm font-extrabold ${
+                    timerLow ? "bg-destructive/15 text-destructive" : "bg-card text-foreground"
+                  }`}
+                >
+                  <TimerIcon className="h-4 w-4" strokeWidth={2.6} />
+                  {timeLeft}s
+                </span>
+              )}
+              <span className="text-sm font-bold text-muted-foreground whitespace-nowrap">
+                {t("multi.remainingPairs")}: {remainingPairs}
+              </span>
+            </div>
           </div>
         )}
       </div>
@@ -289,7 +348,6 @@ export function MultiplayerGameScreen({
         ))}
       </div>
 
-      {/* Responsive column overrides for larger screens */}
       <style jsx>{`
         @media (min-width: 640px) {
           [data-testid="multi-board"] {

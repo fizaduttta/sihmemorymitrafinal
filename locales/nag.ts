@@ -227,4 +227,12 @@ export const nag: Record<string, string> = {
   "multi.deckMemories": "Moi laga Yaad",
   "multi.deckHeading": "Ekta deck bisari lobi",
   "home.multi": "Local Multiplayer",
+
+  "multi.avatar": "Avatar",
+  "multi.chooseAvatar": "{name} nimite avatar bisari lobi",
+  "multi.timer": "Pala laga homoy",
+  "multi.timerOn": "On ({seconds}s)",
+  "multi.timerOff": "Off",
+  "multi.timeUp": "Homoy khotom! Etiya {next} laga pala.",
+  "settings.soundEffects": "Awaz",
 }

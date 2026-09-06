@@ -226,4 +226,12 @@ export const hi: Record<string, string> = {
   "multi.deckMemories": "मेरी यादें",
   "multi.deckHeading": "एक डेक चुनें",
   "home.multi": "स्थानीय मल्टीप्लेयर",
+
+  "multi.avatar": "अवतार",
+  "multi.chooseAvatar": "{name} के लिए अवतार चुनें",
+  "multi.timer": "बारी का समय",
+  "multi.timerOn": "चालू ({seconds} से.)",
+  "multi.timerOff": "बंद",
+  "multi.timeUp": "समय समाप्त! अब {next} की बारी।",
+  "settings.soundEffects": "ध्वनि प्रभाव",
 }

@@ -227,4 +227,12 @@ export const brx: Record<string, string> = {
   "multi.deckMemories": "आंनि गोसो",
   "multi.deckHeading": "मोनसे डेक सान",
   "home.multi": "जायगायाव मल्टीप्लेयर",
+
+  "multi.avatar": "अवतार",
+  "multi.chooseAvatar": "{name}नि थाखाय अवतार सान",
+  "multi.timer": "पालनि सम",
+  "multi.timerOn": "अन ({seconds} से.)",
+  "multi.timerOff": "अफ",
+  "multi.timeUp": "सम जोबबाय! दा {next}नि पाल।",
+  "settings.soundEffects": "सिथिं गोसो",
 }

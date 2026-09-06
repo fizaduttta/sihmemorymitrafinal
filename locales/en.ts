@@ -226,4 +226,12 @@ export const en: Record<string, string> = {
   "multi.deckMemories": "My Memories",
   "multi.deckHeading": "Choose a deck",
   "home.multi": "Local Multiplayer",
+
+  "multi.avatar": "Avatar",
+  "multi.chooseAvatar": "Pick an avatar for {name}",
+  "multi.timer": "Turn timer",
+  "multi.timerOn": "On ({seconds}s)",
+  "multi.timerOff": "Off",
+  "multi.timeUp": "Time's up! {next} is next.",
+  "settings.soundEffects": "Sound effects",
 }

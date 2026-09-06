@@ -227,4 +227,12 @@ export const kha: Record<string, string> = {
   "multi.deckMemories": "Ki Jingkynmaw jong nga",
   "multi.deckHeading": "Jied kawei ka deck",
   "home.multi": "Local Multiplayer",
+
+  "multi.avatar": "Ka dur-shonghi",
+  "multi.chooseAvatar": "Jied ka dur-shonghi ia {name}",
+  "multi.timer": "Ka aiom juk",
+  "multi.timerOn": "Trai ({seconds}s)",
+  "multi.timerOff": "Khang",
+  "multi.timeUp": "La kut ka aiom! La aiu {next}.",
+  "settings.soundEffects": "Ki jingpyrsur",
 }

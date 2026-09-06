@@ -86,6 +86,12 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           onToggle={() => setAccessibility({ voiceGuidance: !accessibility.voiceGuidance })}
           t={t}
         />
+        <Toggle
+          label={t("settings.soundEffects")}
+          on={accessibility.soundEffects}
+          onToggle={() => setAccessibility({ soundEffects: !accessibility.soundEffects })}
+          t={t}
+        />
       </section>
 
       {/* Name */}

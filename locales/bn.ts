@@ -226,4 +226,12 @@ export const bn: Record<string, string> = {
   "multi.deckMemories": "আমার স্মৃতি",
   "multi.deckHeading": "একটি ডেক বেছে নিন",
   "home.multi": "লোকাল মাল্টিপ্লেয়ার",
+
+  "multi.avatar": "অবতার",
+  "multi.chooseAvatar": "{name} এর জন্য অবতার বেছে নিন",
+  "multi.timer": "পালার সময়",
+  "multi.timerOn": "চালু ({seconds} সে.)",
+  "multi.timerOff": "বন্ধ",
+  "multi.timeUp": "সময় শেষ! এখন {next} এর পালা।",
+  "settings.soundEffects": "শব্দ প্রভাব",
 }
