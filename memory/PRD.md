@@ -57,3 +57,12 @@ All new UI strings live under `multi.*` and `home.multi` keys in every one of th
 - ✅ **Winner Celebration** — `<Confetti/>` component renders a 70-piece pixel-block confetti burst over the winner screen for ~3.2s (custom CSS keyframe, no dependency). Winner name displayed in the current locale.
 - All new UI strings added to every one of the 12 locale files (`multi.avatar`, `multi.chooseAvatar`, `multi.timer`, `multi.timerOn/Off`, `multi.timeUp`, `settings.soundEffects`).
 - TypeScript compiles clean. Playwright verified end-to-end: setup avatars picked → gameplay scoreboard shows correct avatars + timer counting down → match/miss/winner chimes played → game completed → confetti overlay present → winner text "Winner: A".
+
+## Session 5 (delivery — Jan 2026)
+- ✅ **Team Play Mode (2v2)** — new Play Mode toggle appears only when 4 players are selected. Free-for-all vs Teams (2v2). Teams: Team 1 = P1+P2, Team 2 = P3+P4 with editable team names (default localized "Team Sun" / "Team Moon" — auto-updates until user customizes).
+- ✅ Player rows show colored team badge (primary tint for Team 1, accent for Team 2) so it's obvious who's on which side.
+- ✅ In-game scoreboard shows a new team-totals grid above the individual scoreboard; the active player's team card is highlighted.
+- ✅ Winner logic aggregates by team: shows "Winning team: {name}" with all winning-team avatars ringed, or "Both teams tied at N!" when totals are equal. Subtitle shows both team scores. Individual ranking still shown below with "of {team}" labels.
+- ✅ Full localization: `multi.playMode`, `multi.modeFree`, `multi.modeTeams`, `multi.teams`, `multi.teamN`, `multi.team1Default`, `multi.team2Default`, `multi.teamOf`, `multi.teamScore`, `multi.teamWinner`, `multi.teamTie`, `multi.teamNamePlaceholder` added to every one of the 12 locales.
+- ✅ TypeScript compiles clean; Playwright verified: 4P + Teams (2v2) + custom team names → in-game team scoreboard renders "Parents 0 / Kids 0" → played to 5-5 tie → winner screen showed "Both teams tied at 5!" with all 4 avatars ringed + team totals grid + individual ranking with "of Parents/of Kids" labels + confetti overlay.
+- Existing free-for-all mode, single-player, and every other feature preserved unchanged.

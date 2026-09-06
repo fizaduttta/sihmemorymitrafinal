@@ -137,4 +137,17 @@ export const mni_mtei: Record<string, string> = {
   "multi.timerOff": "ꯑꯣꯐ",
   "multi.timeUp": "ꯃꯇꯝ ꯂꯣꯏꯔꯦ! ꯍꯧꯖꯤꯛ {next} ꯒꯤ ꯇꯥꯟ꯫",
   "settings.soundEffects": "ꯈꯣꯪꯖꯦꯜ",
+
+  "multi.playMode": "ꯁꯥꯟꯅꯕꯒꯤ ꯃꯈꯜ",
+  "multi.modeFree": "ꯃꯄꯨꯝꯅꯃꯛꯅꯥ ꯑꯃꯥꯟꯅꯥ",
+  "multi.modeTeams": "ꯀꯥꯡꯕꯨ (2v2)",
+  "multi.teams": "ꯀꯥꯡꯕꯨꯁꯤꯡ",
+  "multi.teamN": "ꯀꯥꯡꯕꯨ {n}",
+  "multi.team1Default": "ꯅꯨꯡꯊꯤꯜ ꯀꯥꯡꯕꯨ",
+  "multi.team2Default": "ꯊꯥ ꯀꯥꯡꯕꯨ",
+  "multi.teamOf": "{team} ꯒꯤ",
+  "multi.teamScore": "ꯀꯥꯡꯕꯨꯒꯤ ꯃꯥꯡꯛ",
+  "multi.teamWinner": "ꯃꯥꯏꯄꯥꯛꯄ ꯀꯥꯡꯕꯨ: {name}",
+  "multi.teamTie": "ꯀꯥꯡꯕꯨ ꯑꯅꯤ {score} ꯃꯥꯟꯅꯔꯤ!",
+  "multi.teamNamePlaceholder": "ꯀꯥꯡꯕꯨꯒꯤ ꯃꯤꯡ",
 }

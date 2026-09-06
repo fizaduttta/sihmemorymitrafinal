@@ -234,4 +234,17 @@ export const hi: Record<string, string> = {
   "multi.timerOff": "बंद",
   "multi.timeUp": "समय समाप्त! अब {next} की बारी।",
   "settings.soundEffects": "ध्वनि प्रभाव",
+
+  "multi.playMode": "खेल का ढंग",
+  "multi.modeFree": "सबसे सब",
+  "multi.modeTeams": "टीमें (2 बनाम 2)",
+  "multi.teams": "टीमें",
+  "multi.teamN": "टीम {n}",
+  "multi.team1Default": "सूरज टीम",
+  "multi.team2Default": "चाँद टीम",
+  "multi.teamOf": "{team} की",
+  "multi.teamScore": "टीम का स्कोर",
+  "multi.teamWinner": "विजेता टीम: {name}",
+  "multi.teamTie": "दोनों टीमें बराबरी पर {score}!",
+  "multi.teamNamePlaceholder": "टीम का नाम",
 }

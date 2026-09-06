@@ -234,4 +234,17 @@ export const as: Record<string, string> = {
   "multi.timerOff": "অফ",
   "multi.timeUp": "সময় শেষ! এতিয়া {next}ৰ পাল।",
   "settings.soundEffects": "শব্দ প্ৰভাৱ",
+
+  "multi.playMode": "খেলাৰ ধৰণ",
+  "multi.modeFree": "সকলোৰে সৈতে",
+  "multi.modeTeams": "দল (2 বনাম 2)",
+  "multi.teams": "দলবোৰ",
+  "multi.teamN": "দল {n}",
+  "multi.team1Default": "সূৰ্য দল",
+  "multi.team2Default": "চন্দ্ৰ দল",
+  "multi.teamOf": "{team}ৰ",
+  "multi.teamScore": "দলৰ স্কোৰ",
+  "multi.teamWinner": "বিজয়ী দল: {name}",
+  "multi.teamTie": "দুয়ো দল সমান {score}!",
+  "multi.teamNamePlaceholder": "দলৰ নাম",
 }

@@ -235,4 +235,17 @@ export const nag: Record<string, string> = {
   "multi.timerOff": "Off",
   "multi.timeUp": "Homoy khotom! Etiya {next} laga pala.",
   "settings.soundEffects": "Awaz",
+
+  "multi.playMode": "Khela laga rakam",
+  "multi.modeFree": "Sob sob logote",
+  "multi.modeTeams": "Team (2 laga 2)",
+  "multi.teams": "Team khan",
+  "multi.teamN": "Team {n}",
+  "multi.team1Default": "Suryo Team",
+  "multi.team2Default": "Chand Team",
+  "multi.teamOf": "{team} laga",
+  "multi.teamScore": "Team laga score",
+  "multi.teamWinner": "Jita team: {name}",
+  "multi.teamTie": "Duita team mila {score}!",
+  "multi.teamNamePlaceholder": "Team laga naam",
 }

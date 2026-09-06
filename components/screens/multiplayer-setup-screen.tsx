@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { Users, Timer } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Users, Timer, Swords } from "lucide-react"
 import { useStore } from "@/lib/store"
 import { ScreenHeader } from "@/components/screen-header"
 import { GameButton } from "@/components/game-button"
@@ -33,6 +33,23 @@ export function MultiplayerSetupScreen({
   const [difficulty, setDifficulty] = useState<Difficulty>("easy")
   const [useMemoriesDeck, setUseMemoriesDeck] = useState(false)
   const [timerEnabled, setTimerEnabled] = useState(false)
+  const [teamMode, setTeamMode] = useState(false)
+  const [teamNames, setTeamNames] = useState<[string, string]>([
+    t("multi.team1Default"),
+    t("multi.team2Default"),
+  ])
+
+  // Team mode is only meaningful with exactly 4 players
+  useEffect(() => {
+    if (playerCount !== 4 && teamMode) setTeamMode(false)
+  }, [playerCount, teamMode])
+
+  // Keep team default names localized if the user hasn't customized them yet
+  const [teamNamesDirty, setTeamNamesDirty] = useState(false)
+  useEffect(() => {
+    if (teamNamesDirty) return
+    setTeamNames([t("multi.team1Default"), t("multi.team2Default")])
+  }, [t, teamNamesDirty])
 
   const activeNames = names.slice(0, playerCount)
   const allNamed = activeNames.every((n) => n.trim().length > 0)
@@ -48,6 +65,8 @@ export function MultiplayerSetupScreen({
       useMemoriesDeck,
       timerEnabled,
       turnSeconds: DEFAULT_TURN_SECONDS,
+      teamMode: playerCount === 4 && teamMode,
+      teamNames,
     })
   }
 
@@ -78,17 +97,88 @@ export function MultiplayerSetupScreen({
         </div>
       </section>
 
+      {/* Team mode — only meaningful with 4 players */}
+      {playerCount === 4 && (
+        <section className="pixel-panel bg-card p-4" data-testid="multi-mode-section">
+          <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-foreground">
+            <Swords className="h-5 w-5 text-primary" strokeWidth={2.6} />
+            {t("multi.playMode")}
+          </h2>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setTeamMode(false)}
+              data-testid="multi-mode-free"
+              className={`pixel-btn flex-1 py-3 text-sm font-extrabold ${
+                !teamMode ? "bg-secondary text-secondary-foreground" : "bg-card text-foreground"
+              }`}
+            >
+              {t("multi.modeFree")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setTeamMode(true)}
+              data-testid="multi-mode-teams"
+              className={`pixel-btn flex-1 py-3 text-sm font-extrabold ${
+                teamMode ? "bg-primary text-primary-foreground" : "bg-card text-foreground"
+              }`}
+            >
+              {t("multi.modeTeams")}
+            </button>
+          </div>
+          {teamMode && (
+            <div className="mt-3 grid grid-cols-2 gap-2" data-testid="multi-team-names">
+              {[0, 1].map((idx) => (
+                <label key={idx} className="flex flex-col gap-1">
+                  <span className="text-xs font-bold text-muted-foreground">
+                    {t("multi.teamN", { n: String(idx + 1) })}
+                  </span>
+                  <input
+                    value={teamNames[idx]}
+                    onChange={(e) => {
+                      setTeamNamesDirty(true)
+                      setTeamNames((cur) => {
+                        const next = [...cur] as [string, string]
+                        next[idx] = e.target.value
+                        return next
+                      })
+                    }}
+                    placeholder={t("multi.teamNamePlaceholder")}
+                    data-testid={`multi-team-name-${idx + 1}`}
+                    className="rounded-[10px] border-[3px] border-wood-dark bg-background px-3 py-2 text-base font-bold outline-none focus:ring-4 focus:ring-primary/40"
+                  />
+                </label>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
       {/* Names + Avatars */}
       <section className="pixel-panel bg-card p-4">
         <h2 className="mb-3 text-lg font-extrabold text-foreground">{t("multi.namesHeading")}</h2>
         <div className="flex flex-col gap-3">
-          {Array.from({ length: playerCount }).map((_, i) => (
+          {Array.from({ length: playerCount }).map((_, i) => {
+            const teamIdx = teamMode && playerCount === 4 ? (i < 2 ? 0 : 1) : null
+            return (
             <div key={i} className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <AvatarBadge id={avatars[i]} size={40} />
                 <span className="w-16 shrink-0 text-sm font-bold text-muted-foreground">
                   {t("multi.playerN", { n: String(i + 1) })}
                 </span>
+                {teamIdx !== null && (
+                  <span
+                    data-testid={`multi-team-badge-${i + 1}`}
+                    className={`rounded-[8px] px-2 py-0.5 text-[11px] font-extrabold ${
+                      teamIdx === 0
+                        ? "bg-primary/20 text-primary"
+                        : "bg-accent/40 text-accent-foreground"
+                    }`}
+                  >
+                    {teamNames[teamIdx]}
+                  </span>
+                )}
                 <input
                   value={names[i]}
                   onChange={(e) =>
@@ -123,7 +213,7 @@ export function MultiplayerSetupScreen({
                 })}
               </div>
             </div>
-          ))}
+          )})}
         </div>
       </section>
 

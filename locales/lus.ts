@@ -235,4 +235,17 @@ export const lus: Record<string, string> = {
   "multi.timerOff": "Khar",
   "multi.timeUp": "Hun a tawp! Tunah {next} tur.",
   "settings.soundEffects": "Rimawi",
+
+  "multi.playMode": "Khelh dan",
+  "multi.modeFree": "Mahni ṭheuh",
+  "multi.modeTeams": "Pawl (2 vs 2)",
+  "multi.teams": "Pawlte",
+  "multi.teamN": "Pawl {n}",
+  "multi.team1Default": "Ni Pawl",
+  "multi.team2Default": "Thla Pawl",
+  "multi.teamOf": "{team} ta",
+  "multi.teamScore": "Pawl point",
+  "multi.teamWinner": "Hnehtu pawl: {name}",
+  "multi.teamTie": "Pawl pahnih {score} in an inang!",
+  "multi.teamNamePlaceholder": "Pawl hming",
 }

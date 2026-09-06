@@ -234,4 +234,17 @@ export const en: Record<string, string> = {
   "multi.timerOff": "Off",
   "multi.timeUp": "Time's up! {next} is next.",
   "settings.soundEffects": "Sound effects",
+
+  "multi.playMode": "Play mode",
+  "multi.modeFree": "Free-for-all",
+  "multi.modeTeams": "Teams (2v2)",
+  "multi.teams": "Teams",
+  "multi.teamN": "Team {n}",
+  "multi.team1Default": "Team Sun",
+  "multi.team2Default": "Team Moon",
+  "multi.teamOf": "of {team}",
+  "multi.teamScore": "Team score",
+  "multi.teamWinner": "Winning team: {name}",
+  "multi.teamTie": "Both teams tied at {score}!",
+  "multi.teamNamePlaceholder": "Team name",
 }

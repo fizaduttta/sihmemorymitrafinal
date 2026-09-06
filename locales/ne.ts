@@ -234,4 +234,17 @@ export const ne: Record<string, string> = {
   "multi.timerOff": "अफ",
   "multi.timeUp": "समय समाप्त! अब {next} को पालो।",
   "settings.soundEffects": "आवाज प्रभाव",
+
+  "multi.playMode": "खेल्ने तरिका",
+  "multi.modeFree": "सबै विरुद्ध सबै",
+  "multi.modeTeams": "टोली (२ बनाम २)",
+  "multi.teams": "टोलीहरू",
+  "multi.teamN": "टोली {n}",
+  "multi.team1Default": "सूर्य टोली",
+  "multi.team2Default": "चन्द्र टोली",
+  "multi.teamOf": "{team} को",
+  "multi.teamScore": "टोलीको स्कोर",
+  "multi.teamWinner": "विजेता टोली: {name}",
+  "multi.teamTie": "दुवै टोली बराबरी {score}!",
+  "multi.teamNamePlaceholder": "टोलीको नाम",
 }

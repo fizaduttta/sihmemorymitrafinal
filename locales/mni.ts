@@ -235,4 +235,17 @@ export const mni: Record<string, string> = {
   "multi.timerOff": "অফ",
   "multi.timeUp": "মতম লোইরে! হৌজিক {next} গী তান।",
   "settings.soundEffects": "খোঞ্জেল ফাওবা",
+
+  "multi.playMode": "শান্নবগী মখল",
+  "multi.modeFree": "মপুম্নমক্না অমান্না",
+  "multi.modeTeams": "কাংবু (2 বনাম 2)",
+  "multi.teams": "কাংবুশিং",
+  "multi.teamN": "কাংবু {n}",
+  "multi.team1Default": "নুংথিল কাংবু",
+  "multi.team2Default": "থা কাংবু",
+  "multi.teamOf": "{team} গী",
+  "multi.teamScore": "কাংবুগী মাংক",
+  "multi.teamWinner": "মাইপাকপা কাংবু: {name}",
+  "multi.teamTie": "কাংবু অনী {score} গা মান্নরি!",
+  "multi.teamNamePlaceholder": "কাংবুগী মিং",
 }

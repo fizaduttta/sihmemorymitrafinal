@@ -58,6 +58,7 @@ export function MultiplayerGameScreen({
       name,
       pairs: 0,
       avatarId: config.playerAvatars?.[i] ?? defaultAvatarFor(i),
+      teamIndex: config.teamMode && config.playerCount === 4 ? ((i < 2 ? 0 : 1) as 0 | 1) : undefined,
     })),
   )
   const [currentIdx, setCurrentIdx] = useState(0)
@@ -176,11 +177,42 @@ export function MultiplayerGameScreen({
 
   const cols = multiplayerGridCols(cards.length)
 
+  const teamTotals: [number, number] = config.teamMode
+    ? [
+        players.filter((p) => p.teamIndex === 0).reduce((s, p) => s + p.pairs, 0),
+        players.filter((p) => p.teamIndex === 1).reduce((s, p) => s + p.pairs, 0),
+      ]
+    : [0, 0]
+
   // ---------- COMPLETE ----------
   if (phase === "complete") {
     const maxPairs = Math.max(...players.map((p) => p.pairs))
     const winners = players.filter((p) => p.pairs === maxPairs)
     const isTie = winners.length > 1
+
+    let winnerHeading: string
+    let winnerSubtitle: string | undefined
+    let winnerAvatars: string[]
+
+    if (config.teamMode) {
+      const [t1, t2] = teamTotals
+      const teamTie = t1 === t2
+      const winTeamIdx = t1 >= t2 ? 0 : 1
+      const winTeamName = config.teamNames[winTeamIdx]
+      winnerHeading = teamTie
+        ? t("multi.teamTie", { score: String(t1) })
+        : t("multi.teamWinner", { name: winTeamName })
+      winnerSubtitle = `${config.teamNames[0]}: ${t1} · ${config.teamNames[1]}: ${t2}`
+      winnerAvatars = teamTie
+        ? players.map((p) => p.avatarId)
+        : players.filter((p) => p.teamIndex === winTeamIdx).map((p) => p.avatarId)
+    } else {
+      winnerHeading = isTie
+        ? t("multi.tie", { names: winners.map((w) => w.name).join(" · ") })
+        : t("multi.winner", { name: winners[0].name })
+      winnerAvatars = winners.map((w) => w.avatarId)
+    }
+
     const rankSorted = [...players].sort((a, b) => b.pairs - a.pairs)
 
     return (
@@ -188,46 +220,77 @@ export function MultiplayerGameScreen({
         <Confetti active durationMs={3200} count={70} />
         <ScreenHeader
           title={t("multi.gameComplete")}
-          subtitle={
-            isTie
-              ? t("multi.tie", { names: winners.map((w) => w.name).join(" · ") })
-              : t("multi.winner", { name: winners[0].name })
-          }
+          subtitle={winnerSubtitle ?? winnerHeading}
           onBack={onExit}
         />
 
         <section className="pixel-panel flex flex-col items-center gap-3 bg-card p-6 text-center">
           <div className="flex items-center gap-3">
-            {winners.map((w) => (
-              <AvatarBadge key={w.name} id={w.avatarId} size={64} ring />
+            {winnerAvatars.map((av, i) => (
+              <AvatarBadge key={`${av}-${i}`} id={av} size={56} ring />
             ))}
           </div>
           <div className="flex h-14 w-14 items-center justify-center rounded-[14px] bg-primary text-primary-foreground pixel-panel animate-bob">
             <PartyPopper className="h-7 w-7" strokeWidth={2.2} />
           </div>
           <p className="text-xl font-extrabold text-foreground" data-testid="multi-winner-name">
-            {isTie
-              ? t("multi.tie", { names: winners.map((w) => w.name).join(" · ") })
-              : t("multi.winner", { name: winners[0].name })}
+            {winnerHeading}
           </p>
         </section>
 
+        {config.teamMode && (
+          <ul className="grid grid-cols-2 gap-2" data-testid="multi-team-scoreboard">
+            {[0, 1].map((tIdx) => {
+              const total = teamTotals[tIdx]
+              const isTop = total === Math.max(...teamTotals)
+              return (
+                <li
+                  key={tIdx}
+                  className={`pixel-panel flex flex-col items-center gap-1 px-3 py-3 text-center ${
+                    isTop ? "bg-primary/15" : "bg-card"
+                  }`}
+                  data-testid={`multi-team-total-${tIdx + 1}`}
+                >
+                  <p className="text-sm font-extrabold text-foreground">
+                    {config.teamNames[tIdx]}
+                  </p>
+                  <p className="text-2xl font-extrabold text-primary">{total}</p>
+                  <p className="text-[11px] font-semibold text-muted-foreground">
+                    {t("multi.pairs")}
+                  </p>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+
         <ul className="flex flex-col gap-2" data-testid="multi-scoreboard-final">
           {rankSorted.map((p, i) => {
-            const isWinner = p.pairs === maxPairs
+            const isMaxScorer = p.pairs === maxPairs
+            const teamLabel =
+              p.teamIndex !== undefined ? config.teamNames[p.teamIndex] : null
             return (
               <li
                 key={`${p.name}-${i}`}
                 className={`pixel-panel flex items-center gap-3 px-4 py-3 ${
-                  isWinner ? "bg-primary/15" : "bg-card"
+                  isMaxScorer ? "bg-primary/15" : "bg-card"
                 }`}
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-accent text-accent-foreground text-sm font-extrabold">
                   {i + 1}
                 </span>
                 <AvatarBadge id={p.avatarId} size={36} />
-                <span className="flex-1 text-base font-extrabold text-foreground">{p.name}</span>
-                {isWinner && <Trophy className="h-5 w-5 text-primary" strokeWidth={2.6} />}
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-base font-extrabold text-foreground">{p.name}</p>
+                  {teamLabel && (
+                    <p className="truncate text-[11px] font-semibold text-muted-foreground">
+                      {t("multi.teamOf", { team: teamLabel })}
+                    </p>
+                  )}
+                </div>
+                {isMaxScorer && !config.teamMode && (
+                  <Trophy className="h-5 w-5 text-primary" strokeWidth={2.6} />
+                )}
                 <span className="rounded-[10px] bg-primary/15 px-3 py-1 text-sm font-extrabold text-primary">
                   {p.pairs} {t("multi.pairs")}
                 </span>
@@ -264,6 +327,36 @@ export function MultiplayerGameScreen({
         subtitle={t("multi.instructions")}
         onBack={onExit}
       />
+
+      {/* Team totals — only in team mode */}
+      {config.teamMode && (
+        <ul
+          className="grid grid-cols-2 gap-2"
+          data-testid="multi-team-scores"
+        >
+          {[0, 1].map((tIdx) => {
+            const total = teamTotals[tIdx]
+            const teamActive =
+              players[currentIdx]?.teamIndex === tIdx
+            return (
+              <li
+                key={tIdx}
+                data-testid={`multi-team-score-${tIdx + 1}`}
+                className={`pixel-panel flex items-center justify-between gap-2 px-3 py-2 ${
+                  teamActive ? "bg-primary/20" : "bg-card"
+                }`}
+              >
+                <span className="truncate text-sm font-extrabold text-foreground">
+                  {config.teamNames[tIdx]}
+                </span>
+                <span className="rounded-[8px] bg-primary/15 px-2 py-0.5 text-sm font-extrabold text-primary">
+                  {total}
+                </span>
+              </li>
+            )
+          })}
+        </ul>
+      )}
 
       {/* Scoreboard with avatars */}
       <ul

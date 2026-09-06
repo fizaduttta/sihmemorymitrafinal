@@ -235,4 +235,17 @@ export const kok: Record<string, string> = {
   "multi.timerOff": "Off",
   "multi.timeUp": "Samay khani! Dini {next} ni pala.",
   "settings.soundEffects": "Awaz",
+
+  "multi.playMode": "Khel rokom",
+  "multi.modeFree": "Sob jwrwi bwlai",
+  "multi.modeTeams": "Team (2 vs 2)",
+  "multi.teams": "Team khan",
+  "multi.teamN": "Team {n}",
+  "multi.team1Default": "Sal Team",
+  "multi.team2Default": "Yatta Team",
+  "multi.teamOf": "{team} ni",
+  "multi.teamScore": "Team score",
+  "multi.teamWinner": "Jinbaikwrwi team: {name}",
+  "multi.teamTie": "Duini team rwmnaikha {score}!",
+  "multi.teamNamePlaceholder": "Team bining",
 }

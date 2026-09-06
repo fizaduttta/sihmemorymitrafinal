@@ -235,4 +235,17 @@ export const kha: Record<string, string> = {
   "multi.timerOff": "Khang",
   "multi.timeUp": "La kut ka aiom! La aiu {next}.",
   "settings.soundEffects": "Ki jingpyrsur",
+
+  "multi.playMode": "Rukom kai",
+  "multi.modeFree": "Ka jing wei da wei",
+  "multi.modeTeams": "Ki khynnah (2 lyngba 2)",
+  "multi.teams": "Ki khynnah",
+  "multi.teamN": "Khynnah {n}",
+  "multi.team1Default": "Khynnah Sngi",
+  "multi.team2Default": "Khynnah Bnai",
+  "multi.teamOf": "u {team}",
+  "multi.teamScore": "Jingkylla ka khynnah",
+  "multi.teamWinner": "Ka khynnah ba jop: {name}",
+  "multi.teamTie": "Ar tylli ki khynnah ki iahe ha {score}!",
+  "multi.teamNamePlaceholder": "Kyrteng khynnah",
 }

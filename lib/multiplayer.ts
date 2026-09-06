@@ -18,6 +18,7 @@ export interface Player {
   name: string
   pairs: number
   avatarId: string
+  teamIndex?: 0 | 1
 }
 
 export interface MultiplayerConfig {
@@ -28,6 +29,8 @@ export interface MultiplayerConfig {
   useMemoriesDeck: boolean
   timerEnabled: boolean
   turnSeconds: number
+  teamMode: boolean
+  teamNames: [string, string]
 }
 
 /** Default duration for the optional per-turn timer (seconds). */

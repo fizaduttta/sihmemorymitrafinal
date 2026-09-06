@@ -235,4 +235,17 @@ export const brx: Record<string, string> = {
   "multi.timerOff": "अफ",
   "multi.timeUp": "सम जोबबाय! दा {next}नि पाल।",
   "settings.soundEffects": "सिथिं गोसो",
+
+  "multi.playMode": "खेलानि रोखोम",
+  "multi.modeFree": "गासैखौ बेरेखा",
+  "multi.modeTeams": "दल (2 बेरेखा 2)",
+  "multi.teams": "दलफोर",
+  "multi.teamN": "दल {n}",
+  "multi.team1Default": "सान दल",
+  "multi.team2Default": "आखाइ दल",
+  "multi.teamOf": "{team}नि",
+  "multi.teamScore": "दलनि स्कोर",
+  "multi.teamWinner": "जिन्थियाव दल: {name}",
+  "multi.teamTie": "दुइयो दल समान {score}!",
+  "multi.teamNamePlaceholder": "दलनि मुं",
 }
