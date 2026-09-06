@@ -17,6 +17,7 @@ export const lus: Record<string, string> = {
   "common.start": "Tan",
   "common.play": "Khel rawh",
   "common.add": "Belh",
+  "common.readAloud": "Chhiar chhuah",
 
   "title.enterName": "Engtin ka ko che ang?",
   "title.namePlaceholder": "I hming ziak la",
@@ -185,4 +186,16 @@ export const lus: Record<string, string> = {
   "settings.changeName": "I hming",
   "settings.resetProgress": "Hmasawnna reset",
   "settings.resetConfirm": "Infiamna hmasawnna zawng zawng reset em? I hming leh lehkhabu chu a la awm ang.",
+
+  "suggest.title": "Ṭha lehnak sawi rawh",
+  "suggest.subtitle": "{language} tihṭha nan min ṭanpui rawh — mimal ṭawng thiam ṭawngkam a ṭha ber.",
+  "suggest.original": "A tir (a duh ang ang)",
+  "suggest.originalPlaceholder": "A ṭha lo lem ṭawngkam paste rawh",
+  "suggest.better": "I lehnak",
+  "suggest.betterPlaceholder": "A lungawi zawk, a mawi zawk ziak rawh",
+  "suggest.note": "Sawi belh (a duh ang ang)",
+  "suggest.notePlaceholder": "Lehlin siamtu tan hriattlak ṭawngkam",
+  "suggest.submit": "Lehnak dah",
+  "suggest.saved": "Ka lawm e! Hei ah dah a ni tawh.",
+  "suggest.mine": "I lehnak te",
 }

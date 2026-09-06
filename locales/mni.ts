@@ -17,6 +17,7 @@ export const mni: Record<string, string> = {
   "common.start": "হৌদোক",
   "common.play": "শান্নবা",
   "common.add": "হাপচিন",
+  "common.readAloud": "পাউতাক্না তাক্লু",
 
   "title.enterName": "ঐনা নঙবু কনানা কৌগদগে?",
   "title.namePlaceholder": "নহাক্কী মিং ইরু",
@@ -185,4 +186,16 @@ export const mni: Record<string, string> = {
   "settings.changeName": "নহাক্কী মিং",
   "settings.resetProgress": "চাউখৎ হন্দোক",
   "settings.resetConfirm": "শান্নবগী চাউখৎপু হন্দোক্লগদ্রা? নহাক্কী মিং অমসুং ডাইরিনা লৈরিদুনা লৈরগনি।",
+
+  "suggest.title": "হেন্না ফবা ৱাহৈ পীবীয়ু",
+  "suggest.subtitle": "{language} বু ফজহন্নবা মতেং পাংবীয়ু — মমা লোনগী শকঙাক্তবা লৈবা।",
+  "suggest.original": "অহৌবা (ওইথোকখীদবা)",
+  "suggest.originalPlaceholder": "কেপ্না লেপ্লিবা ৱাহৈ হাপচিন্নু",
+  "suggest.better": "নহাক্কী পাউতাক",
+  "suggest.betterPlaceholder": "খ্বাইদগী নুংঙাইবা মওংদা ইয়ু",
+  "suggest.note": "চেক (ওইথোকখীদবা)",
+  "suggest.notePlaceholder": "লিংগ্বিস্ততকী মতাংদা করিগুম্বা",
+  "suggest.submit": "পাউতাক থমজিন",
+  "suggest.saved": "থাগৎচরি! ফোনদা থমজিন্নরে।",
+  "suggest.mine": "নহাক্কী পাউতাকশিং",
 }

@@ -17,6 +17,7 @@ export const kha: Record<string, string> = {
   "common.start": "Sdang",
   "common.play": "Sain",
   "common.add": "Buh noh",
+  "common.readAloud": "Pule ba pdeng",
 
   "title.enterName": "Kumno nga khot ia phi?",
   "title.namePlaceholder": "Thoh ka kyrteng jong phi",
@@ -185,4 +186,16 @@ export const kha: Record<string, string> = {
   "settings.changeName": "Ka kyrteng jong phi",
   "settings.resetProgress": "Pynthymmai ia ka jingiaid",
   "settings.resetConfirm": "Pynthymmai ia baroh ka jingiaid kai? Ka kyrteng bad ka kot ki dei ban don.",
+
+  "suggest.title": "Ai jingpyrshaphrang kaba bha",
+  "suggest.subtitle": "Iarap ban pynshai ia {language} — jinglong u kynthei-shynrang ka jinglong ka ktien babha.",
+  "suggest.original": "Ka nyngkong (khyndiat)",
+  "suggest.originalPlaceholder": "Buh ia ka ktien ba ym da bha",
+  "suggest.better": "Ka jingpyrshaphrang jong phi",
+  "suggest.betterPlaceholder": "Thoh kawei ba pyrshah bad ba iasyllok",
+  "suggest.note": "Kynthup (khyndiat)",
+  "suggest.notePlaceholder": "Ei ei ba u nongpynkylla ktien lah tip",
+  "suggest.submit": "Bat sha ka jingpyrshaphrang",
+  "suggest.saved": "Khublei bha! La bat sha ha kane ka jing.",
+  "suggest.mine": "Ki jingpyrshaphrang jong phi",
 }

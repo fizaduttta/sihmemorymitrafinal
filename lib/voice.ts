@@ -7,6 +7,7 @@ const langCodes: Record<Language, string> = {
   bn: "bn-IN",
   brx: "hi-IN",
   mni: "bn-IN",
+  mni_mtei: "bn-IN",
   kha: "en-IN",
   lus: "en-IN",
   nag: "as-IN",

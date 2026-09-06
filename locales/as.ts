@@ -16,6 +16,7 @@ export const as: Record<string, string> = {
   "common.start": "আৰম্ভ",
   "common.play": "খেলক",
   "common.add": "যোগ কৰক",
+  "common.readAloud": "পঢ়ি শুনাওক",
 
   "title.enterName": "মই আপোনাক কি বুলি মাতিম?",
   "title.namePlaceholder": "আপোনাৰ নাম লিখক",
@@ -184,4 +185,16 @@ export const as: Record<string, string> = {
   "settings.changeName": "আপোনাৰ নাম",
   "settings.resetProgress": "প্ৰগতি ৰিছেট কৰক",
   "settings.resetConfirm": "সকলো খেলৰ প্ৰগতি ৰিছেট কৰিব নে? আপোনাৰ নাম আৰু ডায়েৰী থাকিব।",
+
+  "suggest.title": "উন্নত শব্দ পৰামৰ্শ দিয়ক",
+  "suggest.subtitle": "{language} পালিছ কৰাত সহায় কৰক — মাতৃভাষীৰ স্পৰ্শ স্বাগতম।",
+  "suggest.original": "মূল (বৈকল্পিক)",
+  "suggest.originalPlaceholder": "অস্বস্তিকৰ বাক্যাংশ ইয়াত থওক",
+  "suggest.better": "আপোনাৰ পৰামৰ্শ",
+  "suggest.betterPlaceholder": "কোমল, স্বাভাৱিক ৰূপ লিখক",
+  "suggest.note": "টোকা (বৈকল্পিক)",
+  "suggest.notePlaceholder": "অনুবাদকৰ বাবে সূচনা",
+  "suggest.submit": "পৰামৰ্শ সংৰক্ষণ",
+  "suggest.saved": "ধন্যবাদ! এই যন্ত্ৰত সংৰক্ষিত।",
+  "suggest.mine": "আপোনাৰ পৰামৰ্শবোৰ",
 }

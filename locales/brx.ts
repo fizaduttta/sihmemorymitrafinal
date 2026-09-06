@@ -17,6 +17,7 @@ export const brx: Record<string, string> = {
   "common.start": "जागाय",
   "common.play": "खेला",
   "common.add": "दाजाब",
+  "common.readAloud": "फोरमायना खोन",
 
   "title.enterName": "आं नोंखौ मा मुं जोंनांगौ?",
   "title.namePlaceholder": "नोंनि मुंखौ लिर",
@@ -185,4 +186,16 @@ export const brx: Record<string, string> = {
   "settings.changeName": "नोंनि मुं",
   "settings.resetProgress": "जागाय गोसा",
   "settings.resetConfirm": "गासै खेला जागाय गोसा? नोंनि मुं आरो लिरगिरि थाब।",
+
+  "suggest.title": "मोजां राव लिरनो पोरामोर्ष हो",
+  "suggest.subtitle": "{language} खौ मोजां खालामनो हेफाजाब हो — मातृभाषीनि हातसा गोसो।",
+  "suggest.original": "मूल (लुबैनाय)",
+  "suggest.originalPlaceholder": "आराम गैया रावखौ इयाव थिन",
+  "suggest.better": "नोंनि पोरामोर्ष",
+  "suggest.betterPlaceholder": "गोदै, स्वाभाविक रूप लिर",
+  "suggest.note": "टिप्पनि (लुबैनाय)",
+  "suggest.notePlaceholder": "अनुवादकनि थाखाय बिबेकनि खौबोर",
+  "suggest.submit": "पोरामोर्ष थिन",
+  "suggest.saved": "साबायखर! बे यन्त्रयाव थिनबाय।",
+  "suggest.mine": "नोंनि पोरामोर्षफोर",
 }

@@ -1,0 +1,108 @@
+/**
+ * Meetei Mayek script rendering of Manipuri (Meitei).
+ * Falls back to `mni` (Bengali-script Manipuri) for any missing key, so this
+ * dictionary can grow over time without leaving English text in the interface.
+ */
+export const mni_mtei: Record<string, string> = {
+  "app.name": "ꯃꯦꯃꯣꯔꯤꯃꯤꯇ꯭ꯔ",
+  "app.tagline": "ꯅꯤꯡꯁꯤꯡꯒꯤ ꯃꯔꯛꯇ ꯑꯆꯧꯕ ꯈꯣꯡꯆꯠ ꯑꯃ꯫",
+  "app.disclaimer":
+    "ꯃꯦꯃꯣꯔꯤꯃꯤꯇ꯭ꯔ ꯑꯁꯤ ꯅꯨꯡꯉꯥꯏꯕ ꯅꯤꯡꯁꯤꯡ ꯁꯦꯡꯗꯣꯛꯄꯒꯤ ꯊꯕꯛ ꯑꯃꯅꯤ꯫ ꯃꯁꯤꯅꯥ ꯂꯥꯏꯅꯥ ꯈꯪꯗꯣꯛꯄ, ꯂꯥꯏꯌꯦꯡꯕ, ꯉꯥꯛꯂꯕꯒꯤ ꯃꯇꯥꯡꯗ ꯂꯧꯕ ꯅꯠꯇꯦ꯫",
+
+  "common.back": "ꯍꯟꯗꯣꯛꯄ",
+  "common.continue": "ꯃꯈꯥ ꯆꯠꯂꯨ",
+  "common.save": "ꯊꯝꯖꯤꯟ",
+  "common.cancel": "ꯀꯛꯊꯣꯛ",
+  "common.delete": "ꯃꯨꯠꯊꯠ",
+  "common.edit": "ꯁꯦꯃꯗꯣꯛ",
+  "common.close": "ꯂꯣꯟꯗꯣꯛ",
+  "common.next": "ꯃꯊꯪ",
+  "common.done": "ꯂꯣꯏꯔꯦ",
+  "common.start": "ꯍꯧꯗꯣꯛ",
+  "common.play": "ꯁꯥꯟꯅꯕ",
+  "common.add": "ꯍꯥꯄꯆꯤꯟ",
+  "common.readAloud": "ꯄꯥꯎꯇꯥꯛꯅ ꯇꯥꯛꯂꯨ",
+
+  "title.enterName": "ꯑꯩꯅꯥ ꯅꯪꯕꯨ ꯀꯅꯥꯅꯥ ꯀꯧꯒꯗꯒꯦ?",
+  "title.namePlaceholder": "ꯅꯍꯥꯛꯀꯤ ꯃꯤꯡ ꯏꯔꯨ",
+  "title.begin": "ꯍꯧꯗꯣꯛ",
+  "title.welcomeBack": "ꯑꯃꯨꯛ ꯇꯔꯥꯝꯅꯥ, {name}!",
+  "title.readyJourney": "ꯉꯁꯤꯒꯤ ꯅꯤꯡꯁꯤꯡ ꯈꯣꯡꯆꯠ ꯁꯦꯃꯗꯣꯛꯂꯕꯔꯥ?",
+  "title.tapToStart": "ꯃꯈꯥ ꯆꯠꯅꯕ ꯁꯣꯀꯨ",
+
+  "nav.home": "ꯌꯨꯝ",
+  "nav.play": "ꯁꯥꯟꯅꯕ",
+  "nav.northeast": "ꯑꯋꯥꯡ-ꯅꯣꯡꯄꯣꯛ",
+  "nav.more": "ꯑꯇꯩ",
+
+  "home.greeting": "ꯈꯨꯔꯨꯝꯖꯔꯤ, {name}",
+  "home.subtitle": "ꯉꯁꯤ ꯅꯍꯥꯛ ꯀꯔꯝꯕ ꯃꯐꯝꯗ ꯆꯠꯅꯤꯡꯕꯒꯦ?",
+  "home.playGame": "ꯅꯤꯡꯁꯤꯡ ꯁꯥꯟꯅꯕ ꯁꯥꯟꯅꯔꯨ",
+  "home.myJourney": "ꯑꯩꯒꯤ ꯅꯤꯡꯁꯤꯡ ꯈꯣꯡꯆꯠ",
+  "home.myMemories": "ꯑꯩꯒꯤ ꯅꯤꯡꯁꯤꯡꯁꯤꯡ",
+  "home.journal": "ꯅꯤꯡꯁꯤꯡ ꯗꯥꯏꯔꯤ",
+  "home.companion": "ꯅꯤꯡꯁꯤꯡ ꯃꯔꯨꯄ",
+  "home.myNortheast": "ꯑꯩꯒꯤ ꯑꯋꯥꯡ-ꯅꯣꯡꯄꯣꯛ",
+  "home.caregiver": "ꯌꯦꯡꯁꯤꯟꯅꯕ",
+  "home.settings": "ꯁꯦꯇꯤꯡꯁꯤꯡ",
+  "home.todayActivity": "ꯉꯁꯤꯒꯤ ꯊꯕꯛ",
+  "home.todaySubtitle": "ꯅꯤꯡꯅꯔꯛꯄꯗ, ꯂꯥꯏꯅ ꯔꯥꯎꯟꯗ ꯈꯔꯥ꯫",
+
+  "game.title": "ꯅꯤꯡꯁꯤꯡ ꯁꯥꯟꯅꯕ",
+  "game.chooseDifficulty": "ꯀꯔꯝꯅ ꯁꯥꯟꯅꯅꯤꯡꯕꯒꯦ ꯈꯟꯗꯣꯀꯨ",
+  "game.easy": "ꯂꯥꯏꯕ",
+  "game.medium": "ꯃꯔꯛꯀꯤꯕ",
+  "game.hard": "ꯂꯨꯕ",
+  "game.round": "ꯔꯥꯎꯟꯗ {n}",
+  "game.roundOf": "ꯔꯥꯎꯟꯗ {n} / {total}",
+  "game.memorize": "ꯀꯥꯔꯗꯁꯤꯡ ꯅꯤꯡꯁꯤꯡꯉꯨ!",
+  "game.getReady": "ꯁꯦꯝ-ꯁꯥꯔꯨ꯫꯫꯫",
+  "game.findPairs": "ꯆꯥꯏꯕ ꯌꯦꯠꯅꯕ ꯊꯤꯔꯨ",
+  "game.greatMatch": "ꯌꯥꯝꯅ ꯐꯕ!",
+  "game.almost": "ꯅꯥꯛꯅ! ꯑꯃꯨꯛ ꯍꯅ꯭ꯅ ꯍꯣꯠꯅꯔꯨ꯫",
+  "game.roundComplete": "ꯔꯥꯎꯟꯗ ꯂꯣꯏꯔꯦ!",
+  "game.wellDone": "ꯌꯥꯝꯅ ꯐꯕ, {name}!",
+  "game.pairsMatched": "ꯆꯥꯏꯕ ꯌꯦꯠꯅꯕ",
+  "game.moves": "ꯈꯣꯡꯊꯥꯡ",
+  "game.nextRound": "ꯃꯊꯪꯒꯤ ꯔꯥꯎꯟꯗ",
+  "game.playAgain": "ꯑꯃꯨꯛ ꯁꯥꯟꯅꯔꯨ",
+  "game.backHome": "ꯌꯨꯝ ꯍꯟꯗꯣꯛ",
+  "game.startRound": "ꯔꯥꯎꯟꯗ ꯍꯧꯗꯣꯛ",
+  "game.chooseDeck": "ꯗꯦꯛ ꯑꯃ ꯈꯟꯗꯣꯀꯨ",
+  "game.classicDeck": "ꯅꯨꯡꯉꯥꯏꯕ ꯃꯃꯤ",
+  "game.myMemoriesDeck": "ꯑꯩꯒꯤ ꯅꯤꯡꯁꯤꯡ",
+
+  "northeast.title": "ꯑꯩꯒꯤ ꯑꯋꯥꯡ-ꯅꯣꯡꯄꯣꯛ",
+  "northeast.subtitle": "ꯅꯤꯄꯥꯜ ꯐꯖꯕ ꯂꯝ ꯅꯤꯄꯥꯜ ꯌꯦꯡꯉꯨ꯫",
+  "northeast.chooseState": "ꯁ꯭ꯇꯦꯠ ꯑꯃ ꯈꯟꯗꯣꯀꯨ",
+  "northeast.chooseCategory": "ꯃꯈꯜ ꯑꯃ ꯈꯟꯗꯣꯀꯨ",
+  "northeast.startGame": "ꯗꯦꯛ ꯑꯁꯤ ꯁꯥꯟꯅꯔꯨ",
+
+  "journey.title": "ꯑꯩꯒꯤ ꯅꯤꯡꯁꯤꯡ ꯈꯣꯡꯆꯠ",
+  "journey.subtitle": "ꯌꯦꯡꯉꯨ ꯅꯍꯥꯛ ꯀꯔꯝꯅ ꯂꯥꯛꯂꯦ꯫",
+  "journey.gamesPlayed": "ꯁꯥꯟꯅꯔꯦ",
+  "journey.roundsCompleted": "ꯂꯣꯏꯁꯤꯟꯈꯤꯕ ꯔꯥꯎꯟꯗ",
+  "journey.pairsMatched": "ꯆꯥꯏꯕ ꯌꯦꯠꯅꯕ",
+  "journey.milestones": "ꯂꯥꯏꯅ ꯃꯥꯏꯂꯁ꯭ꯇꯣꯟ",
+
+  "memories.title": "ꯑꯩꯒꯤ ꯅꯤꯡꯁꯤꯡ",
+  "memories.add": "ꯅꯤꯡꯁꯤꯡ ꯑꯃ ꯍꯥꯄꯆꯤꯟ",
+  "memories.chooseImage": "ꯃꯃꯤ ꯑꯃ ꯈꯟꯗꯣꯀꯨ",
+
+  "journal.title": "ꯅꯤꯡꯁꯤꯡ ꯗꯥꯏꯔꯤ",
+  "journal.new": "ꯑꯅꯧꯕ ꯏꯟꯇ꯭ꯔꯤ",
+  "journal.write": "ꯅꯍꯥꯛꯀꯤ ꯅꯤꯡꯁꯤꯡ",
+  "journal.mood": "ꯀꯔꯝꯅ ꯐꯥꯎꯏ?",
+
+  "companion.title": "ꯅꯤꯡꯁꯤꯡ ꯃꯔꯨꯄ",
+  "companion.send": "ꯊꯥꯔꯨ",
+
+  "caregiver.title": "ꯌꯦꯡꯁꯤꯟꯅꯕ",
+  "caregiver.language": "ꯂꯣꯟ",
+
+  "settings.title": "ꯁꯦꯇꯤꯡꯁꯤꯡ",
+  "settings.language": "ꯂꯣꯟ",
+  "settings.on": "ꯑꯣꯟ",
+  "settings.off": "ꯑꯣꯐ",
+  "settings.changeName": "ꯅꯍꯥꯛꯀꯤ ꯃꯤꯡ",
+}

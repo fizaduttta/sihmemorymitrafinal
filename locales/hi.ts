@@ -16,6 +16,7 @@ export const hi: Record<string, string> = {
   "common.start": "शुरू",
   "common.play": "खेलें",
   "common.add": "जोड़ें",
+  "common.readAloud": "पढ़कर सुनाएँ",
 
   "title.enterName": "मैं आपको क्या कहकर बुलाऊँ?",
   "title.namePlaceholder": "अपना नाम लिखें",
@@ -184,4 +185,16 @@ export const hi: Record<string, string> = {
   "settings.changeName": "आपका नाम",
   "settings.resetProgress": "प्रगति रीसेट करें",
   "settings.resetConfirm": "सभी खेल प्रगति रीसेट करें? आपका नाम और डायरी बनी रहेगी।",
+
+  "suggest.title": "बेहतर शब्द सुझाएँ",
+  "suggest.subtitle": "{language} को निखारने में मदद करें — देशी वक्ता का स्पर्श स्वागत है।",
+  "suggest.original": "मूल (वैकल्पिक)",
+  "suggest.originalPlaceholder": "अटपटा वाक्य यहाँ रखें",
+  "suggest.better": "आपका सुझाव",
+  "suggest.betterPlaceholder": "गर्मजोश और सहज संस्करण लिखें",
+  "suggest.note": "टिप्पणी (वैकल्पिक)",
+  "suggest.notePlaceholder": "अनुवादक के लिए कोई सूचना",
+  "suggest.submit": "सुझाव सहेजें",
+  "suggest.saved": "धन्यवाद! इस उपकरण पर सहेजा गया।",
+  "suggest.mine": "आपके सुझाव",
 }

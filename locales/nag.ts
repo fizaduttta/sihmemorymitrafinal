@@ -17,6 +17,7 @@ export const nag: Record<string, string> = {
   "common.start": "Shuru",
   "common.play": "Khelibi",
   "common.add": "Milai dibi",
+  "common.readAloud": "Pori kene hunai bi",
 
   "title.enterName": "Moi apnike ki mati bo?",
   "title.namePlaceholder": "Apna naam likhibi",
@@ -185,4 +186,16 @@ export const nag: Record<string, string> = {
   "settings.changeName": "Apna laga naam",
   "settings.resetProgress": "Reset koribi",
   "settings.resetConfirm": "Sob khela reset koribo? Apna naam aru diary thakibo.",
+
+  "suggest.title": "Aru bhal sabda dibi",
+  "suggest.subtitle": "{language} bhal koribole modot koribi — desi manu laga chowa mon jai ase.",
+  "suggest.original": "Purana (ichchha)",
+  "suggest.originalPlaceholder": "Bekar kotha yate rakhibi",
+  "suggest.better": "Apna laga sabda",
+  "suggest.betterPlaceholder": "Gorom, ashan bhaxa te likhibi",
+  "suggest.note": "Tipponi (ichchha)",
+  "suggest.notePlaceholder": "Translator nimite jani rakhibole kiba",
+  "suggest.submit": "Rakhi lobi",
+  "suggest.saved": "Dhonyabad! Etu device te rakhi loise.",
+  "suggest.mine": "Apna laga sabda khan",
 }

@@ -5,6 +5,7 @@ export type Language =
   | "bn"
   | "brx"
   | "mni"
+  | "mni_mtei"
   | "kha"
   | "lus"
   | "nag"
@@ -82,6 +83,15 @@ export interface Progress {
   unlockedThemes: string[]
 }
 
+export interface TranslationSuggestion {
+  id: string
+  language: Language
+  original: string
+  suggestion: string
+  note?: string
+  createdAt: number
+}
+
 export interface AppState {
   name: string | null
   language: Language
@@ -91,4 +101,5 @@ export interface AppState {
   memories: CustomMemory[]
   chat: ChatMessage[]
   caregiverPin: string | null
+  translationSuggestions: TranslationSuggestion[]
 }

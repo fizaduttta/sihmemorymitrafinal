@@ -17,6 +17,7 @@ export const kok: Record<string, string> = {
   "common.start": "Hokthang",
   "common.play": "Khel",
   "common.add": "Toksa",
+  "common.readAloud": "Kolwi khwrai",
 
   "title.enterName": "Ang nini bining hamung kokrok?",
   "title.namePlaceholder": "Nini bini kolwi",
@@ -185,4 +186,16 @@ export const kok: Record<string, string> = {
   "settings.changeName": "Nini bining",
   "settings.resetProgress": "Bufang reset",
   "settings.resetConfirm": "Sob khelni bufang reset kwrwi? Nini bining bwrwi sipahi tongkha.",
+
+  "suggest.title": "Rwmnai kokthai kolwi",
+  "suggest.subtitle": "{language} khwmung kwrwi bagwi hephajab hokwrwi — nokhorok kokthai-mai ha rwmnai.",
+  "suggest.original": "Purwni (lwngkha bagwi)",
+  "suggest.originalPlaceholder": "Bwla kokthai ha kolwi",
+  "suggest.better": "Nini kokthai",
+  "suggest.betterPlaceholder": "Rwmnai, sadhu kokthai kolwi",
+  "suggest.note": "Chok (lwngkha bagwi)",
+  "suggest.notePlaceholder": "Kokthai-borongwni bagwi kiba",
+  "suggest.submit": "Kokthai rwyaknai",
+  "suggest.saved": "Dhonyabad! Bo device ni rwyakkha.",
+  "suggest.mine": "Nini kokthai khan",
 }

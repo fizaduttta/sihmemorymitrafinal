@@ -9,6 +9,7 @@ import type {
   JournalEntry,
   CustomMemory,
   ChatMessage,
+  TranslationSuggestion,
 } from "./types"
 import { translate } from "./i18n"
 
@@ -34,6 +35,7 @@ const defaultState: AppState = {
   memories: [],
   chat: [],
   caregiverPin: null,
+  translationSuggestions: [],
 }
 
 interface StoreContextValue extends AppState {
@@ -51,6 +53,10 @@ interface StoreContextValue extends AppState {
   addChat: (msg: Omit<ChatMessage, "id" | "at">) => void
   unlockTheme: (theme: string) => void
   setCaregiverPin: (pin: string) => void
+  addTranslationSuggestion: (
+    entry: Omit<TranslationSuggestion, "id" | "createdAt">,
+  ) => void
+  deleteTranslationSuggestion: (id: string) => void
   resetProgress: () => void
 }
 
@@ -74,6 +80,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           ...parsed,
           accessibility: { ...defaultState.accessibility, ...parsed.accessibility },
           progress: { ...defaultState.progress, ...parsed.progress },
+          translationSuggestions: parsed.translationSuggestions ?? [],
         })
       }
     } catch {
@@ -168,6 +175,21 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           },
         })),
       setCaregiverPin: (pin) => setState((s) => ({ ...s, caregiverPin: pin })),
+      addTranslationSuggestion: (entry) =>
+        setState((s) => ({
+          ...s,
+          translationSuggestions: [
+            { ...entry, id: uid(), createdAt: Date.now() },
+            ...(s.translationSuggestions ?? []),
+          ],
+        })),
+      deleteTranslationSuggestion: (id) =>
+        setState((s) => ({
+          ...s,
+          translationSuggestions: (s.translationSuggestions ?? []).filter(
+            (x) => x.id !== id,
+          ),
+        })),
       resetProgress: () =>
         setState((s) => ({ ...s, progress: { ...defaultState.progress } })),
     }

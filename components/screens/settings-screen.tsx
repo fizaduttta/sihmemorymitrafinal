@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useStore } from "@/lib/store"
 import { ScreenHeader } from "@/components/screen-header"
 import { GameButton } from "@/components/game-button"
+import { SuggestTranslation } from "@/components/suggest-translation"
 import { LANGUAGES } from "@/lib/i18n"
 import type { TextSize } from "@/lib/types"
 
@@ -108,6 +109,9 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           </button>
         </div>
       </section>
+
+      {/* Suggest a better translation */}
+      <SuggestTranslation />
 
       {/* Reset */}
       <GameButton

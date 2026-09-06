@@ -16,6 +16,7 @@ export const en: Record<string, string> = {
   "common.start": "Start",
   "common.play": "Play",
   "common.add": "Add",
+  "common.readAloud": "Read aloud",
 
   "title.enterName": "What may I call you?",
   "title.namePlaceholder": "Type your name",
@@ -184,4 +185,16 @@ export const en: Record<string, string> = {
   "settings.changeName": "Your name",
   "settings.resetProgress": "Reset progress",
   "settings.resetConfirm": "Reset all game progress? Your name and journal stay.",
+
+  "suggest.title": "Suggest a better wording",
+  "suggest.subtitle": "Help polish {language} — a native speaker's touch is welcome.",
+  "suggest.original": "Original (optional)",
+  "suggest.originalPlaceholder": "Paste the awkward phrase",
+  "suggest.better": "Your suggestion",
+  "suggest.betterPlaceholder": "Write a warmer, more natural version",
+  "suggest.note": "Note (optional)",
+  "suggest.notePlaceholder": "Anything a translator should know",
+  "suggest.submit": "Save suggestion",
+  "suggest.saved": "Thank you! Saved on this device.",
+  "suggest.mine": "Your suggestions",
 }
