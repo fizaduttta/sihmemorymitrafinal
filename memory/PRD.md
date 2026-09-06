@@ -1,43 +1,51 @@
 # MemoryMitra — Product Requirements
 
 ## Original problem statement
-Add 8 more North-Eastern Indian languages to the existing MemoryMitra game (Next.js + TS + localStorage) without touching existing gameplay, UI style, or the already-shipped English/Hindi/Assamese versions. Full-interface localization, no English placeholders after switching, centralized i18n, persistent selection.
+Extend the existing MemoryMitra Next.js game with (a) offline local multiplayer for 2–4 players, (b) scaled difficulty (more pairs), (c) complete localization for every existing locale, (d) subtle cozy-pixel visual polish. **Preserve every existing feature verbatim**: English/Hindi/Assamese + all NE-language files, Single Player, Memory Journey, My Memories, animations, progress, navigation.
 
 ## Users
-Elderly / memory-engagement players in North-East India and their caregivers, often more comfortable in native scripts than English.
+Elderly / memory-engagement players in North-East India + friends and family gathered around one device.
 
-## Core Requirements
-- Preserve all existing screens, animations, gameplay logic, memory data.
-- Every user-facing string comes from a single translation dictionary keyed by locale.
-- Language change persists across screens and app restarts (localStorage key `memorymitra.v1`).
-- Language selector on Title, Settings, and Home shows flag + native script + English label.
+## Architecture (unchanged core + additive additions)
+- Next.js 16 app router, TypeScript strict.
+- `/app/locales/{en,hi,as,bn,brx,mni,mni_mtei,kha,lus,nag,kok,ne}.ts` — one dictionary per locale (12 total).
+- `/app/lib/i18n.ts` — centralized `translate()` with per-locale fallback chain (`mni_mtei` → `mni` → `en`) + `LANGUAGES` metadata.
+- `/app/lib/multiplayer.ts` — types, `MULTI_PAIR_CONFIG` (single source of truth for pair counts), grid-cols helper, `buildMultiplayerBoard`.
+- `/app/lib/game-data.ts` — existing `CLASSIC_DECK` untouched; new `MULTI_DECK` combines classic + unique items from every state (30+ unique items) to support up to 21 pairs.
+- `/app/components/screens/multiplayer-setup-screen.tsx` + `multiplayer-game-screen.tsx` — new screens, reuse existing `MemoryCard`, `ScreenHeader`, `GameButton`.
+- `/app/components/app-shell.tsx` — routes to a new `"multiplayer"` screen alongside all existing screens; single-player `GameScreen` untouched.
+- `/app/components/screens/home-screen.tsx` — new tile + primary CTA for Local Multiplayer (existing tiles unchanged).
+- `/app/app/globals.css` — added `.animate-match` sparkle and subtle blocky checker pattern on `.tile-back`; existing tokens & animations untouched.
 
-## Architecture
-- Next.js 16 app router (`/app`), TypeScript strict.
-- `/app/locales/{en,hi,as,bn,brx,mni,mni_mtei,kha,lus,nag,kok,ne}.ts` — one dictionary per locale.
-- `/app/lib/i18n.ts` — imports all dicts, exposes `translate(lang, key, vars)` with a per-locale fallback chain (`mni_mtei` → `mni` → `en`), plus a `LANGUAGES` metadata array (code / native / english / flag).
-- `/app/lib/store.tsx` — provides `t()` + `setLanguage()` + `addTranslationSuggestion()` via context, backed by localStorage.
-- `/app/lib/companion.ts` — reactions + prompts for every language (incl. Meetei Mayek variant).
-- `/app/lib/voice.ts` — BCP-47 codes for each locale (falls back to closest script when native TTS voice is unavailable).
-- `/app/components/language-chip.tsx` — compact home-header language switcher with dropdown.
-- `/app/components/suggest-translation.tsx` — native-speaker suggestion capture, persisted per-locale.
+## Multiplayer specification
+- **Players**: 2, 3, or 4 (locally, no backend).
+- **Pair counts** (centralized in `MULTI_PAIR_CONFIG`):
+  - 2P: easy 6 / medium 10 / hard 15 pairs
+  - 3P: easy 8 / medium 12 / hard 18 pairs
+  - 4P: easy 10 / medium 15 / hard 21 pairs
+- **Turn logic**: player picks 2 cards → match keeps their turn + increments their pair count; no match reveals briefly then flips back and advances turn.
+- **Guards**: cannot re-click a matched or face-up card, cannot select 3 during resolution, `lock` state blocks rapid clicks.
+- **Winner screen**: ranked scoreboard, single winner or joint tie, Play Again (fresh shuffled board) + Back to Menu.
+- **Deck**: `MULTI_DECK` by default; My Memories deck available when the user has ≥ required unique memories.
+- **Grid**: `multiplayerGridCols(count)` returns responsive mobile/tablet/desktop column counts (3→7 depending on card total).
 
-## What's implemented (2026-01)
-### Session 1
-- ✅ 11 fully-translated locales: English, Hindi, Assamese, Bengali, Bodo, Manipuri (Bengali script), Khasi, Mizo, Nagamese, Kokborok (Tripuri), Nepali.
-- ✅ Centralized i18n with `LANGUAGES` metadata, language pickers on Title + Settings.
-- ✅ Companion AI replies + voice-guidance BCP-47 codes for every language.
-- ✅ Existing English/Hindi/Assamese content preserved verbatim; game logic, memory data, progress untouched.
+## Localization
+All new UI strings live under `multi.*` and `home.multi` keys in every one of the 12 locale files (including Meetei Mayek). No hard-coded English in any new component. Existing English/Hindi/Assamese/NE files preserved verbatim.
 
-### Session 2 (next actions from user)
-- ✅ **Language Flags Home Tile** — `<LanguageChip />` on home header (flag + native name + dropdown listing all 11 locales incl. Meetei Mayek variant).
-- ✅ **Voice Read-Aloud** — 🔊 speaker button always visible in `ScreenHeader` (works regardless of voice-guidance toggle) + speaker on home greeting. Speaks title+subtitle in current locale's BCP-47 voice.
-- ✅ **Meetei Mayek Script** — new `mni_mtei` locale added with core UI in traditional Meetei Mayek script; falls back to Bengali-script Manipuri (`mni`) then English so no English text leaks.
-- ✅ **Human Translator Pass** — `<SuggestTranslation />` in Settings lets native speakers propose a better wording (original + suggestion + note), stored per-locale in `translationSuggestions` array on state, listed back with delete affordance. Fully localized in all 12 locales.
-- ✅ TypeScript compiles clean; end-to-end verified via Playwright screenshots (English home + chip menu + Meetei Mayek switch + Settings grid + Suggest form).
+## What's implemented
+- ✅ 12 locales; Voice Read-Aloud speaker; Language chip on home; Suggest-a-translation feature (from prior sessions).
+- ✅ **Session 3 (this delivery)**:
+  - Offline Local Multiplayer (2/3/4 players) — setup flow + gameplay + winner screen.
+  - Centralized pair config; scaled difficulty (up to 21 pairs / 42 cards).
+  - Responsive card grid across phone/tablet/desktop breakpoints.
+  - Larger multi-deck combining classic + NE items so higher pair counts always have unique cards.
+  - Subtle pixel-polish: blocky checker on card back, sparkle animation on match, existing pixel-panel shadows retained.
+  - Full localization of every new string in all 12 locales.
+  - TypeScript compiles clean; Playwright screenshots verify: 4P Hard → 42 cards ✓, turn switching ✓, extra turn on match ✓, Hindi full-UI ✓, Single Player regression clean ✓.
 
 ## Backlog / Future
-- P1: Export/share collected translation suggestions from Caregiver area (e.g. JSON download, email link).
-- P1: Expand Meetei Mayek coverage to 100% of keys (currently ~40 hand-crafted core strings, rest inherit from `mni`).
-- P2: Locale-aware date/number formatting in journal timestamps + progress stats.
-- P2: Curated native-voice TTS files for languages with poor system-TTS support (Bodo, Kokborok, Khasi, Mizo).
+- P1: Animate the active-player badge transition & card flip more prominently in pixel style.
+- P1: Sound effects for match / turn / winner (respecting existing voice-guidance toggle).
+- P2: Export translation suggestions from Caregiver area.
+- P2: Complete Meetei Mayek dictionary coverage.
+- P2: Curated native TTS voice packs for Bodo, Kokborok, Khasi, Mizo.

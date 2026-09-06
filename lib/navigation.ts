@@ -1,6 +1,7 @@
 export type Screen =
   | "home"
   | "game"
+  | "multiplayer"
   | "northeast"
   | "journey"
   | "memories"

@@ -162,6 +162,28 @@ html.high-contrast .pixel-btn {
     background-image:
       linear-gradient(135deg, color-mix(in oklch, var(--bamboo) 85%, white) 0%, var(--bamboo) 100%);
     background-size: cover;
+    position: relative;
+  }
+  .tile-back::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(90deg, transparent 0 45%, rgba(255,255,255,0.09) 45% 55%, transparent 55% 100%),
+      linear-gradient(0deg,  transparent 0 45%, rgba(0,0,0,0.06) 45% 55%, transparent 55% 100%);
+    background-size: 25% 25%, 25% 25%;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  /* Subtle blocky "grass block" backdrop that never overwhelms content */
+  .block-bg {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(color-mix(in oklch, var(--wood-dark) 12%, transparent) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: 0 0;
   }
 }
 
@@ -184,6 +206,12 @@ html.high-contrast .pixel-btn {
     0% { transform: scale(0.8); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
+  @keyframes match-sparkle {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in oklch, var(--primary) 55%, transparent); }
+    60% { transform: scale(1.04); box-shadow: 0 0 0 8px color-mix(in oklch, var(--primary) 0%, transparent); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+  }
   .animate-bob { animation: gentle-bob 3.5s ease-in-out infinite; }
   .animate-pop { animation: pop-in 0.25s ease-out; }
+  .animate-match { animation: match-sparkle 0.9s ease-out; }
 }

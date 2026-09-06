@@ -51,6 +51,7 @@ import {
   Anchor,
   Sailboat,
   Guitar,
+  Users,
 } from "lucide-react"
 
 export const iconMap: Record<string, LucideIcon> = {
@@ -105,6 +106,7 @@ export const iconMap: Record<string, LucideIcon> = {
   anchor: Anchor,
   sailboat: Sailboat,
   guitar: Guitar,
+  users: Users,
 }
 
 export function getIcon(name: string): LucideIcon {

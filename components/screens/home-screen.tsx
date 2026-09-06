@@ -15,6 +15,7 @@ export function HomeScreen({ navigate }: { navigate: (s: Screen) => void }) {
   const subtitle = t("home.subtitle")
 
   const tiles: { screen: Screen; labelKey: string; icon: string; color: string }[] = [
+    { screen: "multiplayer", labelKey: "home.multi", icon: "users", color: "#4a90c2" },
     { screen: "journey", labelKey: "home.myJourney", icon: "footprints", color: "#8267be" },
     { screen: "memories", labelKey: "home.myMemories", icon: "heart", color: "#b0475a" },
     { screen: "journal", labelKey: "home.journal", icon: "feather", color: "#3fa79a" },
@@ -66,6 +67,13 @@ export function HomeScreen({ navigate }: { navigate: (s: Screen) => void }) {
             icon="star"
             variant="primary"
             onClick={() => navigate("game")}
+          />
+          <GameButton
+            label={t("home.multi")}
+            description={t("multi.subtitle")}
+            icon="users"
+            variant="accent"
+            onClick={() => navigate("multiplayer")}
           />
           <GameButton
             label={t("home.myNortheast")}

@@ -1,5 +1,4 @@
 import type { CardContent, CategoryId, Difficulty, StateId } from "./types"
-
 export interface RoundConfig {
   pairs: number
   preview: number
@@ -429,3 +428,34 @@ export function getNortheastDeck(state: StateId, category: CategoryId): CardCont
 export function getDeckId(state: StateId, category: CategoryId): string {
   return `ne:${state}:${category}`
 }
+
+/**
+ * Larger deck for local multiplayer (needs up to 21 unique items for 4P/Hard).
+ * Combines the classic deck with hand-picked variety from every state so we
+ * always have plenty of visually-distinct pairs.
+ */
+export const MULTI_DECK: CardContent[] = (() => {
+  const seen = new Set<string>()
+  const items: [string, string][] = []
+  // Start with classic items
+  for (const c of CLASSIC_DECK) {
+    const key = `${c.icon}|${c.label}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    items.push([c.icon, c.label ?? c.icon])
+  }
+  // Then pull unique icon/label combos from every state deck
+  const stateIds = Object.keys(DATA) as StateId[]
+  const catIds: CategoryId[] = ["nature", "places", "arts", "cultural", "food"]
+  for (const st of stateIds) {
+    for (const cat of catIds) {
+      for (const [icon, label] of DATA[st][cat]) {
+        const key = `${icon}|${label}`
+        if (seen.has(key)) continue
+        seen.add(key)
+        items.push([icon, label])
+      }
+    }
+  }
+  return deck("multi", items)
+})()

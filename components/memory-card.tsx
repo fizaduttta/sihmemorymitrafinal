@@ -44,7 +44,7 @@ export function MemoryCard({
         <div
           className={cn(
             "pixel-panel absolute inset-0 flex flex-col items-center justify-center gap-1 overflow-hidden p-1 [backface-visibility:hidden]",
-            card.matched && "ring-4 ring-primary/60",
+            card.matched && "ring-4 ring-primary/60 animate-match",
           )}
           style={{ backgroundColor: `color-mix(in oklch, ${card.content.color} 16%, white)` }}
         >

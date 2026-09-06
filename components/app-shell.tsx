@@ -9,6 +9,8 @@ import { IconTile } from "@/components/game-button"
 import { TitleScreen } from "@/components/screens/title-screen"
 import { HomeScreen } from "@/components/screens/home-screen"
 import { GameScreen } from "@/components/screens/game-screen"
+import { MultiplayerSetupScreen } from "@/components/screens/multiplayer-setup-screen"
+import { MultiplayerGameScreen } from "@/components/screens/multiplayer-game-screen"
 import { NortheastScreen } from "@/components/screens/northeast-screen"
 import { JourneyScreen } from "@/components/screens/journey-screen"
 import { MemoriesScreen } from "@/components/screens/memories-screen"
@@ -17,6 +19,7 @@ import { CompanionScreen } from "@/components/screens/companion-screen"
 import { CaregiverScreen } from "@/components/screens/caregiver-screen"
 import { SettingsScreen } from "@/components/screens/settings-screen"
 import type { Screen, GameConfig } from "@/lib/navigation"
+import type { MultiplayerConfig } from "@/lib/multiplayer"
 
 const MORE_ITEMS: { screen: Screen; labelKey: string; icon: string; color: string }[] = [
   { screen: "journey", labelKey: "home.myJourney", icon: "footprints", color: "#8267be" },
@@ -32,6 +35,8 @@ export function AppShell() {
   const [entered, setEntered] = useState(false)
   const [screen, setScreen] = useState<Screen>("home")
   const [gameConfig, setGameConfig] = useState<GameConfig | null>(null)
+  const [multiConfig, setMultiConfig] = useState<MultiplayerConfig | null>(null)
+  const [multiSession, setMultiSession] = useState(0)
   const [showMore, setShowMore] = useState(false)
 
   if (!ready) {
@@ -44,6 +49,7 @@ export function AppShell() {
 
   function navigate(s: Screen) {
     if (s === "game") setGameConfig(null)
+    if (s === "multiplayer") setMultiConfig(null)
     setScreen(s)
     setShowMore(false)
   }
@@ -53,12 +59,41 @@ export function AppShell() {
     setScreen("game")
   }
 
+  function startMultiplayer(cfg: MultiplayerConfig) {
+    setMultiConfig(cfg)
+    setMultiSession((n) => n + 1)
+  }
+
+  function restartMultiplayer() {
+    setMultiSession((n) => n + 1)
+  }
+
   function renderScreen() {
     switch (screen) {
       case "home":
         return <HomeScreen navigate={navigate} />
       case "game":
         return <GameScreen config={gameConfig} onExit={() => navigate("home")} />
+      case "multiplayer":
+        if (!multiConfig) {
+          return (
+            <MultiplayerSetupScreen
+              onStart={startMultiplayer}
+              onBack={() => navigate("home")}
+            />
+          )
+        }
+        return (
+          <MultiplayerGameScreen
+            key={multiSession}
+            config={multiConfig}
+            onExit={() => {
+              setMultiConfig(null)
+              navigate("home")
+            }}
+            onRestart={restartMultiplayer}
+          />
+        )
       case "northeast":
         return <NortheastScreen onPlay={playDeck} onBack={() => navigate("home")} />
       case "journey":
