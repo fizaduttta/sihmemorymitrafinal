@@ -4,6 +4,14 @@ const langCodes: Record<Language, string> = {
   en: "en-IN",
   hi: "hi-IN",
   as: "as-IN",
+  bn: "bn-IN",
+  brx: "hi-IN",
+  mni: "bn-IN",
+  kha: "en-IN",
+  lus: "en-IN",
+  nag: "as-IN",
+  kok: "en-IN",
+  ne: "ne-NP",
 }
 
 export function speak(text: string, lang: Language, enabled: boolean) {

@@ -4,8 +4,8 @@ import { useState } from "react"
 import { useStore } from "@/lib/store"
 import { ScreenHeader } from "@/components/screen-header"
 import { GameButton } from "@/components/game-button"
-import { languageNames } from "@/lib/i18n"
-import type { Language, TextSize } from "@/lib/types"
+import { LANGUAGES } from "@/lib/i18n"
+import type { TextSize } from "@/lib/types"
 
 export function SettingsScreen({ onBack }: { onBack: () => void }) {
   const { t, name, setName, language, setLanguage, accessibility, setAccessibility, resetProgress } =
@@ -26,6 +26,7 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
             <button
               key={ts}
               type="button"
+              data-testid={`text-size-${ts}`}
               onClick={() => setAccessibility({ textSize: ts })}
               className={`pixel-btn flex-1 py-3 ${
                 accessibility.textSize === ts ? "bg-primary text-primary-foreground" : "bg-card text-foreground"
@@ -39,19 +40,26 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
       </section>
 
       {/* Language */}
-      <section className="pixel-panel bg-card p-4">
+      <section className="pixel-panel bg-card p-4" data-testid="settings-language-section">
         <h2 className="mb-3 text-lg font-extrabold text-foreground">{t("settings.language")}</h2>
-        <div className="flex gap-2">
-          {(Object.keys(languageNames) as Language[]).map((lang) => (
+        <div className="grid grid-cols-2 gap-2">
+          {LANGUAGES.map((lang) => (
             <button
-              key={lang}
+              key={lang.code}
               type="button"
-              onClick={() => setLanguage(lang)}
-              className={`pixel-btn flex-1 py-3 text-base ${
-                language === lang ? "bg-accent text-accent-foreground" : "bg-card text-foreground"
+              data-testid={`language-option-${lang.code}`}
+              onClick={() => setLanguage(lang.code)}
+              className={`pixel-btn flex flex-col items-start gap-0.5 px-3 py-2.5 text-left ${
+                language === lang.code ? "bg-accent text-accent-foreground" : "bg-card text-foreground"
               }`}
             >
-              {languageNames[lang]}
+              <span className="flex items-center gap-2 text-base font-extrabold leading-tight">
+                <span aria-hidden>{lang.flag}</span>
+                <span>{lang.native}</span>
+              </span>
+              <span className="text-[11px] font-semibold leading-tight opacity-75">
+                {lang.english}
+              </span>
             </button>
           ))}
         </div>

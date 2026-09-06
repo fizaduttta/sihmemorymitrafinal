@@ -5,8 +5,7 @@ import { Sparkles } from "lucide-react"
 import { useStore } from "@/lib/store"
 import { Scenery } from "@/components/scenery"
 import { GameButton } from "@/components/game-button"
-import { languageNames } from "@/lib/i18n"
-import type { Language } from "@/lib/types"
+import { LANGUAGES } from "@/lib/i18n"
 
 export function TitleScreen({ onEnter }: { onEnter: () => void }) {
   const { name, language, setLanguage, setName, t } = useStore()
@@ -36,18 +35,25 @@ export function TitleScreen({ onEnter }: { onEnter: () => void }) {
         </h1>
         <p className="mt-2 text-lg font-semibold text-muted-foreground">{t("app.tagline")}</p>
 
-        {/* Language quick pick */}
-        <div className="mt-6 flex gap-2">
-          {(Object.keys(languageNames) as Language[]).map((lang) => (
+        {/* Language quick pick — horizontal scroll on small screens */}
+        <div
+          className="mt-6 flex w-full max-w-full snap-x snap-mandatory gap-2 overflow-x-auto pb-2"
+          data-testid="title-language-picker"
+          style={{ scrollbarWidth: "thin" }}
+        >
+          {LANGUAGES.map((lang) => (
             <button
-              key={lang}
+              key={lang.code}
               type="button"
-              onClick={() => setLanguage(lang)}
-              className={`pixel-btn px-4 py-2 text-base ${
-                language === lang ? "bg-accent text-accent-foreground" : "bg-card text-foreground"
+              data-testid={`title-lang-${lang.code}`}
+              onClick={() => setLanguage(lang.code)}
+              className={`pixel-btn shrink-0 snap-start px-3 py-2 text-sm ${
+                language === lang.code ? "bg-accent text-accent-foreground" : "bg-card text-foreground"
               }`}
+              title={lang.english}
             >
-              {languageNames[lang]}
+              <span className="mr-1" aria-hidden>{lang.flag}</span>
+              <span className="font-extrabold">{lang.native}</span>
             </button>
           ))}
         </div>

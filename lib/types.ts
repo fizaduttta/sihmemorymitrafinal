@@ -1,4 +1,15 @@
-export type Language = "en" | "hi" | "as"
+export type Language =
+  | "en"
+  | "hi"
+  | "as"
+  | "bn"
+  | "brx"
+  | "mni"
+  | "kha"
+  | "lus"
+  | "nag"
+  | "kok"
+  | "ne"
 
 export type TextSize = "small" | "medium" | "large"
 
