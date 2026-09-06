@@ -248,4 +248,8 @@ export const kok: Record<string, string> = {
   "multi.teamWinner": "Jinbaikwrwi team: {name}",
   "multi.teamTie": "Duini team rwmnaikha {score}!",
   "multi.teamNamePlaceholder": "Team bining",
+
+  "home.singlePlayer": "Mwsai khelagiri",
+  "settings.music": "Rwchabma",
+  "home.chooseAdventure": "Nini lama khwrai",
 }

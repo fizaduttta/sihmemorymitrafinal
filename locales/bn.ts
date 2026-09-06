@@ -247,4 +247,8 @@ export const bn: Record<string, string> = {
   "multi.teamWinner": "বিজয়ী দল: {name}",
   "multi.teamTie": "দুই দল সমান {score}!",
   "multi.teamNamePlaceholder": "দলের নাম",
+
+  "home.singlePlayer": "একক খেলোয়াড়",
+  "settings.music": "সঙ্গীত",
+  "home.chooseAdventure": "আপনার অভিযান বেছে নিন",
 }

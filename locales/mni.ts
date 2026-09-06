@@ -248,4 +248,8 @@ export const mni: Record<string, string> = {
   "multi.teamWinner": "মাইপাকপা কাংবু: {name}",
   "multi.teamTie": "কাংবু অনী {score} গা মান্নরি!",
   "multi.teamNamePlaceholder": "কাংবুগী মিং",
+
+  "home.singlePlayer": "অমতাং শান্নরিবা",
+  "settings.music": "ইশৈ",
+  "home.chooseAdventure": "নহাক্কী খোংচৎ খন্দোকু",
 }

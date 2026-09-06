@@ -248,4 +248,8 @@ export const kha: Record<string, string> = {
   "multi.teamWinner": "Ka khynnah ba jop: {name}",
   "multi.teamTie": "Ar tylli ki khynnah ki iahe ha {score}!",
   "multi.teamNamePlaceholder": "Kyrteng khynnah",
+
+  "home.singlePlayer": "Wei tang uwei",
+  "settings.music": "Ka jingrwai",
+  "home.chooseAdventure": "Jied ka jinglong-lynti",
 }

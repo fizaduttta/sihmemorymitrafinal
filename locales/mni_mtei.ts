@@ -150,4 +150,8 @@ export const mni_mtei: Record<string, string> = {
   "multi.teamWinner": "ꯃꯥꯏꯄꯥꯛꯄ ꯀꯥꯡꯕꯨ: {name}",
   "multi.teamTie": "ꯀꯥꯡꯕꯨ ꯑꯅꯤ {score} ꯃꯥꯟꯅꯔꯤ!",
   "multi.teamNamePlaceholder": "ꯀꯥꯡꯕꯨꯒꯤ ꯃꯤꯡ",
+
+  "home.singlePlayer": "ꯑꯃꯇꯥꯡ ꯁꯥꯟꯅꯔꯤꯕ",
+  "settings.music": "ꯏꯁꯩ",
+  "home.chooseAdventure": "ꯅꯍꯥꯛꯀꯤ ꯈꯣꯡꯆꯠ ꯈꯟꯗꯣꯀꯨ",
 }

@@ -248,4 +248,8 @@ export const lus: Record<string, string> = {
   "multi.teamWinner": "Hnehtu pawl: {name}",
   "multi.teamTie": "Pawl pahnih {score} in an inang!",
   "multi.teamNamePlaceholder": "Pawl hming",
+
+  "home.singlePlayer": "Mimal",
+  "settings.music": "Hla",
+  "home.chooseAdventure": "I lam thlang la",
 }

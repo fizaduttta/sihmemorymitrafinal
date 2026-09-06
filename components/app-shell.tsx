@@ -115,8 +115,14 @@ export function AppShell() {
 
   return (
     <div className="relative flex min-h-dvh flex-col">
-      <Scenery compact />
-      <main className="mx-auto w-full max-w-md flex-1 px-4 py-4">{renderScreen()}</main>
+      {screen !== "home" && <Scenery compact />}
+      <main
+        className={`mx-auto w-full flex-1 px-4 py-4 ${
+          screen === "home" ? "max-w-2xl" : "max-w-md"
+        }`}
+      >
+        {renderScreen()}
+      </main>
 
       <BottomNav current={screen} onNavigate={navigate} onMore={() => setShowMore(true)} />
 

@@ -247,4 +247,8 @@ export const en: Record<string, string> = {
   "multi.teamWinner": "Winning team: {name}",
   "multi.teamTie": "Both teams tied at {score}!",
   "multi.teamNamePlaceholder": "Team name",
+
+  "home.singlePlayer": "Single Player",
+  "settings.music": "Music",
+  "home.chooseAdventure": "Choose your adventure",
 }

@@ -92,6 +92,12 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           onToggle={() => setAccessibility({ soundEffects: !accessibility.soundEffects })}
           t={t}
         />
+        <Toggle
+          label={t("settings.music")}
+          on={accessibility.music}
+          onToggle={() => setAccessibility({ music: !accessibility.music })}
+          t={t}
+        />
       </section>
 
       {/* Name */}

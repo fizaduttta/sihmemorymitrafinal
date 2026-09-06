@@ -248,4 +248,8 @@ export const brx: Record<string, string> = {
   "multi.teamWinner": "जिन्थियाव दल: {name}",
   "multi.teamTie": "दुइयो दल समान {score}!",
   "multi.teamNamePlaceholder": "दलनि मुं",
+
+  "home.singlePlayer": "मोनसे खेलागिरि",
+  "settings.music": "गीत",
+  "home.chooseAdventure": "नोंनि जायगा सान",
 }

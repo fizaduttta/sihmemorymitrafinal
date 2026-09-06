@@ -247,4 +247,8 @@ export const ne: Record<string, string> = {
   "multi.teamWinner": "विजेता टोली: {name}",
   "multi.teamTie": "दुवै टोली बराबरी {score}!",
   "multi.teamNamePlaceholder": "टोलीको नाम",
+
+  "home.singlePlayer": "एकल खेलाडी",
+  "settings.music": "संगीत",
+  "home.chooseAdventure": "आफ्नो साहसिक छान्नुहोस्",
 }

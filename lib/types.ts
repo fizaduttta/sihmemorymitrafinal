@@ -74,6 +74,7 @@ export interface AccessibilitySettings {
   highContrast: boolean
   voiceGuidance: boolean
   soundEffects: boolean
+  music: boolean
 }
 
 export interface Progress {

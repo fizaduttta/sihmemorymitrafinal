@@ -53,7 +53,7 @@ export function GameButton({
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-lg font-bold leading-tight">{label}</span>
+        <span className="block text-lg font-bold leading-tight">{label}</span>
         {description && (
           <span className="block truncate text-sm font-medium opacity-85">{description}</span>
         )}
@@ -68,28 +68,45 @@ export function IconTile({
   color,
   onClick,
   children,
+  compact = false,
 }: {
   label?: string
   icon?: string
   color?: string
   onClick?: () => void
   children?: ReactNode
+  compact?: boolean
 }) {
   const Icon = icon ? getIcon(icon) : null
   return (
     <button
       type="button"
       onClick={onClick}
-      className="pixel-panel flex flex-col items-center gap-2 p-4 transition-transform active:translate-y-1"
+      className={cn(
+        "pixel-panel flex flex-col items-center gap-1.5 transition-transform active:translate-y-1",
+        compact ? "p-2" : "p-4",
+      )}
     >
       <span
-        className="flex h-16 w-16 items-center justify-center rounded-[12px] text-white"
+        className={cn(
+          "flex items-center justify-center rounded-[12px] text-white",
+          compact ? "h-11 w-11" : "h-16 w-16",
+        )}
         style={{ backgroundColor: color ?? "var(--primary)" }}
       >
-        {Icon && <Icon className="h-8 w-8" strokeWidth={2.4} />}
+        {Icon && <Icon className={compact ? "h-6 w-6" : "h-8 w-8"} strokeWidth={2.4} />}
         {children}
       </span>
-      {label && <span className="text-center text-sm font-bold leading-tight">{label}</span>}
+      {label && (
+        <span
+          className={cn(
+            "text-center font-bold leading-tight",
+            compact ? "text-[11px]" : "text-sm",
+          )}
+        >
+          {label}
+        </span>
+      )}
     </button>
   )
 }

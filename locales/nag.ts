@@ -248,4 +248,8 @@ export const nag: Record<string, string> = {
   "multi.teamWinner": "Jita team: {name}",
   "multi.teamTie": "Duita team mila {score}!",
   "multi.teamNamePlaceholder": "Team laga naam",
+
+  "home.singlePlayer": "Ekla manu",
+  "settings.music": "Gaana",
+  "home.chooseAdventure": "Apna safar bisari lobi",
 }

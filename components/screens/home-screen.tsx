@@ -4,101 +4,129 @@ import { Volume2 } from "lucide-react"
 import { useStore, countGamesPlayed } from "@/lib/store"
 import { GameButton, IconTile } from "@/components/game-button"
 import { LanguageChip } from "@/components/language-chip"
+import { HomeControls } from "@/components/home-controls"
+import { MemoryMitraLogo } from "@/components/memory-mitra-logo"
+import { Scenery } from "@/components/scenery"
 import { speak } from "@/lib/voice"
+import { playChime } from "@/lib/sounds"
 import type { Screen } from "@/lib/navigation"
 
 export function HomeScreen({ navigate }: { navigate: (s: Screen) => void }) {
-  const { name, t, progress, language } = useStore()
+  const { name, t, progress, language, accessibility } = useStore()
   const games = countGamesPlayed(progress)
-
   const greeting = t("home.greeting", { name: name ?? "" })
-  const subtitle = t("home.subtitle")
 
-  const tiles: { screen: Screen; labelKey: string; icon: string; color: string }[] = [
-    { screen: "multiplayer", labelKey: "home.multi", icon: "users", color: "#4a90c2" },
-    { screen: "journey", labelKey: "home.myJourney", icon: "footprints", color: "#8267be" },
-    { screen: "memories", labelKey: "home.myMemories", icon: "heart", color: "#b0475a" },
-    { screen: "journal", labelKey: "home.journal", icon: "feather", color: "#3fa79a" },
-    { screen: "companion", labelKey: "home.companion", icon: "smile", color: "#d1793f" },
-    { screen: "caregiver", labelKey: "home.caregiver", icon: "hand-heart", color: "#a9743f" },
-    { screen: "settings", labelKey: "home.settings", icon: "sun", color: "#dda12b" },
+  // Primary adventure choices — clearly centered
+  const primary: {
+    screen: Screen
+    labelKey: string
+    icon: string
+    variant: "primary" | "accent" | "sky" | "soft"
+  }[] = [
+    { screen: "game",        labelKey: "home.singlePlayer", icon: "star",        variant: "primary" },
+    { screen: "multiplayer", labelKey: "home.multi",        icon: "users",       variant: "accent" },
+    { screen: "journey",     labelKey: "home.myJourney",    icon: "footprints",  variant: "sky" },
+    { screen: "memories",    labelKey: "home.myMemories",   icon: "heart",       variant: "soft" },
   ]
 
+  // Secondary tiles — remain accessible but visually smaller
+  const secondary: { screen: Screen; labelKey: string; icon: string; color: string }[] = [
+    { screen: "northeast", labelKey: "home.myNortheast", icon: "mountain-snow", color: "#4a90c2" },
+    { screen: "journal",   labelKey: "home.journal",     icon: "feather",       color: "#3fa79a" },
+    { screen: "companion", labelKey: "home.companion",   icon: "smile",         color: "#d1793f" },
+    { screen: "caregiver", labelKey: "home.caregiver",   icon: "hand-heart",    color: "#a9743f" },
+  ]
+
+  function withClick(fn: () => void) {
+    return () => {
+      playChime("turn", accessibility.soundEffects)
+      fn()
+    }
+  }
+
   return (
-    <div className="flex flex-col gap-6">
-      <header className="pt-2">
-        <div className="mb-2 flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <p className="text-lg font-semibold text-muted-foreground">{greeting}</p>
-            <h1 className="font-display text-3xl font-extrabold text-foreground text-shadow-soft">
-              {subtitle}
-            </h1>
-          </div>
-          <div className="flex shrink-0 flex-col items-end gap-2 pt-1">
+    <>
+      {/* Cozy pixel world sits behind everything */}
+      <Scenery companion />
+
+      <div className="relative flex flex-col gap-6" data-testid="home-screen">
+        {/* Top corners: language (left) + controls (right) */}
+        <header className="flex items-start justify-between gap-3 pt-1">
+          <div className="shrink-0" data-testid="home-language-slot">
             <LanguageChip />
-            <button
-              type="button"
-              onClick={() => speak(`${greeting}. ${subtitle}`, language, true)}
-              aria-label={t("common.readAloud")}
-              data-testid="home-read-aloud"
-              className="pixel-btn flex h-10 w-10 items-center justify-center bg-secondary text-secondary-foreground"
-            >
-              <Volume2 className="h-5 w-5" strokeWidth={2.4} />
-            </button>
           </div>
-        </div>
-      </header>
+          <HomeControls onOpenSettings={withClick(() => navigate("settings"))} />
+        </header>
 
-      {/* Today's activity */}
-      <section className="pixel-panel bg-card p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-extrabold text-foreground">{t("home.todayActivity")}</h2>
-            <p className="text-sm font-medium text-muted-foreground">{t("home.todaySubtitle")}</p>
-          </div>
-          <span className="rounded-[10px] bg-primary/15 px-3 py-2 text-center text-sm font-bold text-primary">
-            {games}
-            <span className="block text-xs">{t("journey.gamesPlayed")}</span>
-          </span>
-        </div>
-        <div className="flex flex-col gap-3">
-          <GameButton
-            label={t("home.playGame")}
-            icon="star"
-            variant="primary"
-            onClick={() => navigate("game")}
-          />
-          <GameButton
-            label={t("home.multi")}
-            description={t("multi.subtitle")}
-            icon="users"
-            variant="accent"
-            onClick={() => navigate("multiplayer")}
-          />
-          <GameButton
-            label={t("home.myNortheast")}
-            description={t("northeast.subtitle")}
-            icon="mountain-snow"
-            variant="sky"
-            onClick={() => navigate("northeast")}
-          />
-        </div>
-      </section>
+        {/* Centered logo + tagline */}
+        <section className="flex flex-col items-center gap-1 pt-2 sm:pt-4">
+          <MemoryMitraLogo />
+          <p
+            className="mt-2 text-center text-sm font-bold text-muted-foreground sm:text-base"
+            data-testid="home-greeting"
+          >
+            {greeting}
+          </p>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground/80">
+            {t("home.chooseAdventure")}
+          </p>
+        </section>
 
-      {/* Locations grid */}
-      <section>
-        <div className="grid grid-cols-3 gap-3">
-          {tiles.map((tile) => (
-            <IconTile
-              key={tile.screen}
-              label={t(tile.labelKey)}
-              icon={tile.icon}
-              color={tile.color}
-              onClick={() => navigate(tile.screen)}
+        {/* Four primary choices — chunky pixel buttons */}
+        <section
+          className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
+          data-testid="home-primary-grid"
+        >
+          {primary.map((p) => (
+            <GameButton
+              key={p.screen}
+              label={t(p.labelKey)}
+              icon={p.icon}
+              variant={p.variant}
+              onClick={withClick(() => navigate(p.screen))}
             />
           ))}
-        </div>
-      </section>
-    </div>
+        </section>
+
+        {/* Secondary tiles — smaller row, kept accessible */}
+        <section className="mx-auto w-full max-w-lg">
+          <div className="grid grid-cols-4 gap-2" data-testid="home-secondary-grid">
+            {secondary.map((tile) => (
+              <IconTile
+                key={tile.screen}
+                label={t(tile.labelKey)}
+                icon={tile.icon}
+                color={tile.color}
+                compact
+                onClick={withClick(() => navigate(tile.screen))}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Today's activity — small footer stat */}
+        <section className="mx-auto flex w-full max-w-lg items-center justify-between gap-3 rounded-[12px] bg-card/85 px-4 py-2 pixel-panel backdrop-blur-sm">
+          <div>
+            <p className="text-sm font-extrabold text-foreground">{t("home.todayActivity")}</p>
+            <p className="text-xs font-medium text-muted-foreground">{t("home.todaySubtitle")}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => speak(`${greeting}. ${t("home.chooseAdventure")}`, language, true)}
+              aria-label={t("common.readAloud")}
+              data-testid="home-read-aloud"
+              className="pixel-btn flex h-9 w-9 items-center justify-center bg-secondary text-secondary-foreground"
+            >
+              <Volume2 className="h-4 w-4" strokeWidth={2.4} />
+            </button>
+            <span className="rounded-[10px] bg-primary/15 px-3 py-1.5 text-center text-sm font-extrabold text-primary">
+              {games}
+              <span className="ml-1 text-xs font-bold">{t("journey.gamesPlayed")}</span>
+            </span>
+          </div>
+        </section>
+      </div>
+    </>
   )
 }
