@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState, useCallback } 
 import type {
   AppState,
   Language,
+  ThemeMode,
   AccessibilitySettings,
   Progress,
   JournalEntry,
@@ -18,6 +19,7 @@ const STORAGE_KEY = "memorymitra.v1"
 const defaultState: AppState = {
   name: null,
   language: "en",
+  themeMode: "day",
   accessibility: {
     textSize: "medium",
     reducedMotion: false,
@@ -45,6 +47,7 @@ interface StoreContextValue extends AppState {
   t: (key: string, vars?: Record<string, string>) => string
   setName: (name: string) => void
   setLanguage: (lang: Language) => void
+  setThemeMode: (mode: ThemeMode) => void
   setAccessibility: (patch: Partial<AccessibilitySettings>) => void
   recordRound: (pairs: number, deckId: string) => void
   addJournal: (entry: Omit<JournalEntry, "id" | "createdAt" | "updatedAt">) => void
@@ -122,6 +125,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       t,
       setName: (name) => setState((s) => ({ ...s, name: name.trim() || s.name })),
       setLanguage: (language) => setState((s) => ({ ...s, language })),
+      setThemeMode: (themeMode) => setState((s) => ({ ...s, themeMode })),
       setAccessibility: (patch) =>
         setState((s) => ({ ...s, accessibility: { ...s.accessibility, ...patch } })),
       recordRound: (pairs, deckId) =>

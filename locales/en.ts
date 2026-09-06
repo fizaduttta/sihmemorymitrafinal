@@ -221,6 +221,8 @@ export const en: Record<string, string> = {
   "multi.playAgain": "Play again",
   "multi.backToMenu": "Back to menu",
   "multi.instructions": "Tap two cards to find a matching pair. Match = extra turn.",
+  "multi.memorizeCards": "Memorize the cards!",
+  "multi.cardsFlipIn": "Cards flip in: {seconds}",
   "multi.needAtLeastTwo": "Please enter at least two names.",
   "multi.deckClassic": "Cozy Classics",
   "multi.deckMemories": "My Memories",
@@ -250,5 +252,8 @@ export const en: Record<string, string> = {
 
   "home.singlePlayer": "Single Player",
   "settings.music": "Music",
+  "settings.themeMode": "World lighting",
+  "settings.dayMode": "Day Mode",
+  "settings.nightMode": "Night Mode",
   "home.chooseAdventure": "Choose your adventure",
 }

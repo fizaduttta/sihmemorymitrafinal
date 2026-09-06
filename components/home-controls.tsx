@@ -1,6 +1,6 @@
 "use client"
 
-import { Volume2, VolumeX, Music, Music2, Settings2 } from "lucide-react"
+import { Volume2, VolumeX, Music, Music2, Settings2, Sun, Moon } from "lucide-react"
 import { useStore } from "@/lib/store"
 import { playChime } from "@/lib/sounds"
 
@@ -9,7 +9,7 @@ import { playChime } from "@/lib/sounds"
  * Toggles read/write directly to the global accessibility store.
  */
 export function HomeControls({ onOpenSettings }: { onOpenSettings: () => void }) {
-  const { accessibility, setAccessibility, t } = useStore()
+  const { accessibility, themeMode, setThemeMode, setAccessibility, t } = useStore()
 
   return (
     <div className="flex items-center gap-1.5" data-testid="home-controls">
@@ -25,6 +25,16 @@ export function HomeControls({ onOpenSettings }: { onOpenSettings: () => void })
           if (next) playChime("turn", true)
         }}
       />
+      <button
+        type="button"
+        onClick={() => setThemeMode(themeMode === "day" ? "night" : "day")}
+        aria-label={themeMode === "day" ? t("settings.nightMode") : t("settings.dayMode")}
+        aria-pressed={themeMode === "night"}
+        data-testid="home-toggle-theme"
+        className="woody-btn"
+      >
+        {themeMode === "day" ? <Moon className="h-5 w-5" strokeWidth={2.6} /> : <Sun className="h-5 w-5" strokeWidth={2.6} />}
+      </button>
       <IconToggle
         on={accessibility.music}
         onIcon={<Music className="h-5 w-5" strokeWidth={2.6} />}

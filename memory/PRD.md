@@ -77,3 +77,16 @@ All new UI strings live under `multi.*` and `home.multi` keys in every one of th
 - ✅ **Accessibility preserved**: reduced-motion stops clouds, birds, tail wag, firefly drift, sun/moon bob; high-contrast, text-size, voice-guidance untouched. Cards / labels remain readable over the scene. Language chip preserves every existing locale — none removed or duplicated.
 - ✅ **Responsive** — home container widens to `max-w-2xl` on desktop; primary grid stacks to single column on mobile; scene is fixed to viewport so it stays behind interactive UI.
 - ✅ **Existing features preserved**: TitleScreen still handles first-visit name entry and returning-user Continue flow; every other screen (game, multiplayer, journey, memories, journal, companion, caregiver, settings, northeast) untouched. TypeScript clean. Playwright screenshots verified day + night + Hindi switch + reduced-motion + mobile viewport + Single Player navigation.
+
+## Session 7 (delivery — user-controlled night mode + multiplayer memorization fix)
+- ✅ Added centralized `themeMode` state (`day`/`night`) to the existing store with local persistence, defaulting to unchanged Day mode.
+- ✅ Added a compact home Day/Night control and matching Settings selector; existing `?night=1|0` scenery overrides remain supported.
+- ✅ Reused the existing scenery world for the night atmosphere: moon, stars, fireflies, darker terrain, warm lanterns, and lit homes remain intact.
+- ✅ Fixed Local Multiplayer startup with a face-up `memorize` phase, 5-second countdown, disabled cards, then a synchronized face-down transition into the existing Player 1 turn logic.
+- ✅ Existing match/mismatch protections, scoring, extra turns, timers, restart flow, languages, and screens remain unchanged. Added stable test IDs for Settings accessibility toggles.
+- ✅ `yarn build` passes and local browser smoke tests verified theme switching/persistence plus multiplayer face-up countdown and Player 1 transition.
+
+## Prioritized backlog
+- P0: None for the requested scope.
+- P1: Add localized translations for the three new theme/memorization labels in locale dictionaries where they currently fall back to English.
+- P2: Add a small visual countdown progress indicator while preserving the current calm presentation.

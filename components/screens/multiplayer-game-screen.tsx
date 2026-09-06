@@ -19,11 +19,12 @@ import {
   type Player,
   NON_MATCH_REVEAL_MS,
   MATCH_APPLY_MS,
+  INITIAL_MEMORIZE_SECONDS,
 } from "@/lib/multiplayer"
 import { defaultAvatarFor } from "@/lib/avatars"
 import type { CardContent } from "@/lib/types"
 
-type Phase = "play" | "complete"
+type Phase = "memorize" | "play" | "complete"
 
 export function MultiplayerGameScreen({
   config,
@@ -51,8 +52,10 @@ export function MultiplayerGameScreen({
   )
   const sourceDeck = config.useMemoriesDeck && memoriesDeck.length >= totalPairs ? memoriesDeck : MULTI_DECK
 
-  const [phase, setPhase] = useState<Phase>("play")
-  const [cards, setCards] = useState<GameCard[]>(() => buildMultiplayerBoard(sourceDeck, totalPairs))
+  const [phase, setPhase] = useState<Phase>("memorize")
+  const [cards, setCards] = useState<GameCard[]>(() =>
+    buildMultiplayerBoard(sourceDeck, totalPairs).map((card) => ({ ...card, faceUp: true })),
+  )
   const [players, setPlayers] = useState<Player[]>(() =>
     config.playerNames.map((name, i) => ({
       name,
@@ -66,6 +69,7 @@ export function MultiplayerGameScreen({
   const [lock, setLock] = useState(false)
   const [banner, setBanner] = useState<string | null>(null)
   const [timeLeft, setTimeLeft] = useState(config.turnSeconds)
+  const [memorizeLeft, setMemorizeLeft] = useState(INITIAL_MEMORIZE_SECONDS)
 
   const cardsRef = useRef<GameCard[]>([])
   cardsRef.current = cards
@@ -74,6 +78,23 @@ export function MultiplayerGameScreen({
 
   const currentPlayer = players[currentIdx]
   const remainingPairs = totalPairs - players.reduce((sum, p) => sum + p.pairs, 0)
+
+  // Keep every card visible during the initial memory window, then begin Player 1's turn.
+  useEffect(() => {
+    if (phase !== "memorize") return
+    const iv = setInterval(() => {
+      setMemorizeLeft((seconds) => {
+        if (seconds <= 1) {
+          clearInterval(iv)
+          setCards((cur) => cur.map((card) => ({ ...card, faceUp: false })))
+          setPhase("play")
+          return 0
+        }
+        return seconds - 1
+      })
+    }, 1000)
+    return () => clearInterval(iv)
+  }, [phase])
 
   const showBanner = useCallback((msg: string, ttl = 1400) => {
     setBanner(msg)
@@ -388,7 +409,11 @@ export function MultiplayerGameScreen({
 
       {/* Current turn banner (with timer) */}
       <div className="min-h-[2.5rem]">
-        {banner ? (
+        {phase === "memorize" ? (
+          <div className="animate-pop rounded-[12px] bg-primary/15 px-4 py-2 text-center text-base font-extrabold text-primary" data-testid="multi-memorize-banner">
+            {t("multi.memorizeCards")} {t("multi.cardsFlipIn", { seconds: String(memorizeLeft) })}
+          </div>
+        ) : banner ? (
           <div
             className="animate-pop rounded-[12px] bg-primary/15 px-4 py-2 text-center text-base font-extrabold text-primary"
             data-testid="multi-banner"
@@ -436,7 +461,7 @@ export function MultiplayerGameScreen({
             key={card.key}
             card={card}
             onFlip={() => handleFlip(i)}
-            disabled={lock || card.faceUp || card.matched}
+            disabled={phase !== "play" || lock || card.faceUp || card.matched}
           />
         ))}
       </div>

@@ -13,6 +13,8 @@ export const MULTI_PAIR_CONFIG: Record<PlayerCount, Record<Difficulty, number>> 
 export const NON_MATCH_REVEAL_MS = 1100
 /** Delay before applying the "matched" state (ms). */
 export const MATCH_APPLY_MS = 550
+/** Initial board viewing time so everyone can memorize the face-up cards. */
+export const INITIAL_MEMORIZE_SECONDS = 5
 
 export interface Player {
   name: string

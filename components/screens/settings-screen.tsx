@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useStore } from "@/lib/store"
+import { Moon, Sun } from "lucide-react"
 import { ScreenHeader } from "@/components/screen-header"
 import { GameButton } from "@/components/game-button"
 import { SuggestTranslation } from "@/components/suggest-translation"
@@ -9,7 +10,7 @@ import { LANGUAGES } from "@/lib/i18n"
 import type { TextSize } from "@/lib/types"
 
 export function SettingsScreen({ onBack }: { onBack: () => void }) {
-  const { t, name, setName, language, setLanguage, accessibility, setAccessibility, resetProgress } =
+  const { t, name, setName, language, setLanguage, themeMode, setThemeMode, accessibility, setAccessibility, resetProgress } =
     useStore()
   const [nameDraft, setNameDraft] = useState(name ?? "")
 
@@ -37,6 +38,18 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
               {t(`settings.${ts}`)}
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="pixel-panel bg-card p-4" data-testid="settings-theme-section">
+        <h2 className="mb-3 text-lg font-extrabold text-foreground">{t("settings.themeMode")}</h2>
+        <div className="flex gap-2">
+          <button type="button" data-testid="settings-day-mode" onClick={() => setThemeMode("day")} className={`pixel-btn flex flex-1 items-center justify-center gap-2 py-3 ${themeMode === "day" ? "bg-primary text-primary-foreground" : "bg-card text-foreground"}`}>
+            <Sun className="h-5 w-5" /> {t("settings.dayMode")}
+          </button>
+          <button type="button" data-testid="settings-night-mode" onClick={() => setThemeMode("night")} className={`pixel-btn flex flex-1 items-center justify-center gap-2 py-3 ${themeMode === "night" ? "bg-primary text-primary-foreground" : "bg-card text-foreground"}`}>
+            <Moon className="h-5 w-5" /> {t("settings.nightMode")}
+          </button>
         </div>
       </section>
 
@@ -70,30 +83,35 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
       <section className="pixel-panel flex flex-col gap-3 bg-card p-4">
         <Toggle
           label={t("settings.reducedMotion")}
+          testid="settings-toggle-reduced-motion"
           on={accessibility.reducedMotion}
           onToggle={() => setAccessibility({ reducedMotion: !accessibility.reducedMotion })}
           t={t}
         />
         <Toggle
           label={t("settings.highContrast")}
+          testid="settings-toggle-high-contrast"
           on={accessibility.highContrast}
           onToggle={() => setAccessibility({ highContrast: !accessibility.highContrast })}
           t={t}
         />
         <Toggle
           label={t("settings.voiceGuidance")}
+          testid="settings-toggle-voice-guidance"
           on={accessibility.voiceGuidance}
           onToggle={() => setAccessibility({ voiceGuidance: !accessibility.voiceGuidance })}
           t={t}
         />
         <Toggle
           label={t("settings.soundEffects")}
+          testid="settings-toggle-sound-effects"
           on={accessibility.soundEffects}
           onToggle={() => setAccessibility({ soundEffects: !accessibility.soundEffects })}
           t={t}
         />
         <Toggle
           label={t("settings.music")}
+          testid="settings-toggle-music"
           on={accessibility.music}
           onToggle={() => setAccessibility({ music: !accessibility.music })}
           t={t}
@@ -143,11 +161,13 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
 
 function Toggle({
   label,
+  testid,
   on,
   onToggle,
   t,
 }: {
   label: string
+  testid: string
   on: boolean
   onToggle: () => void
   t: (k: string) => string
@@ -155,6 +175,7 @@ function Toggle({
   return (
     <button
       type="button"
+      data-testid={testid}
       onClick={onToggle}
       className="flex items-center justify-between rounded-[12px] border-[3px] border-wood-dark bg-background px-4 py-3"
     >

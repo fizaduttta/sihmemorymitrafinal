@@ -14,6 +14,8 @@ export type Language =
 
 export type TextSize = "small" | "medium" | "large"
 
+export type ThemeMode = "day" | "night"
+
 export type Difficulty = "easy" | "medium" | "hard"
 
 export type Mood = "happy" | "calm" | "thoughtful" | "grateful" | "sad"
@@ -97,6 +99,7 @@ export interface TranslationSuggestion {
 export interface AppState {
   name: string | null
   language: Language
+  themeMode: ThemeMode
   accessibility: AccessibilitySettings
   progress: Progress
   journal: JournalEntry[]

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { useStore } from "@/lib/store"
 
 /**
@@ -17,32 +17,16 @@ export function Scenery({
   night?: boolean
   companion?: boolean
 }) {
-  const { accessibility } = useStore()
+  const { accessibility, themeMode } = useStore()
   const reducedMotion = accessibility.reducedMotion
 
-  // Determine day/night from clock unless forced by prop or ?night=1|0.
-  const [autoNight, setAutoNight] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false
-    const params = new URLSearchParams(window.location.search)
-    const p = params.get("night")
-    if (p === "1") return true
-    if (p === "0") return false
-    const h = new Date().getHours()
-    return h < 6 || h >= 19
+  // Preserve the existing URL override while making the stored preference the normal source of truth.
+  const [urlNight] = useState<boolean | undefined>(() => {
+    if (typeof window === "undefined") return undefined
+    const value = new URLSearchParams(window.location.search).get("night")
+    return value === "1" ? true : value === "0" ? false : undefined
   })
-  useEffect(() => {
-    if (forcedNight !== undefined) return
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search)
-      if (params.get("night") === "1" || params.get("night") === "0") return
-    }
-    const iv = setInterval(() => {
-      const h = new Date().getHours()
-      setAutoNight(h < 6 || h >= 19)
-    }, 60_000)
-    return () => clearInterval(iv)
-  }, [forcedNight])
-  const night = forcedNight ?? autoNight
+  const night = forcedNight ?? urlNight ?? themeMode === "night"
 
   return (
     <div
